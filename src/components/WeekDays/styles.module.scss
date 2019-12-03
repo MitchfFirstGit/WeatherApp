@@ -1,0 +1,17 @@
+  ul {
+    color: white;
+    list-style: none;
+    display: flex;
+    padding: 0;
+    overflow: auto;
+    padding-bottom: 10px;
+
+    .day {
+      font-size: 1.5rem;
+      border-bottom: 2px solid white;
+      padding-bottom: 5px;
+      min-width: 100px;
+      text-align: center;
+      margin: 0 5px;
+    }
+  }
