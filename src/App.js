@@ -4,6 +4,7 @@ import React from 'react';
 import Search from './components/Search';
 import MainInfo from './components/MainInfo';
 import WeekDays from './components/WeekDays';
+import Day from './components/Day';
 // styles
 import styles from './styles.module.scss'
 
@@ -13,6 +14,7 @@ function App() {
       <Search />
       <MainInfo />
       <WeekDays />
+      <Day />
     </div>
   );
 }
