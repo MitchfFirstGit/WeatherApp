@@ -1,7 +1,8 @@
-  ul {
+  .daysContainer {
     color: white;
     list-style: none;
     display: flex;
+    justify-content: space-between;
     padding: 0;
     overflow: auto;
     padding-bottom: 10px;

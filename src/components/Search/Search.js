@@ -1,28 +1,55 @@
 // modules
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from '@mdi/react';
 import { mdiHeart, mdiMenu } from '@mdi/js';
+import { connect } from 'react-redux';
+// Redux
+import { getWeatherForecast } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
-function Search() {
-    useEffect(() => {
-        fetch('http://api.openweathermap.org/data/2.5/forecast?q=london&APPID=de1e94c85ef8c5b5b4456417ebd24daf')
-            .then(response => response.json())
-            .then(data => { console.log(data) })
-    });
+const Search = ({
+    getWeatherForecast
+}) => {
+    const [city, setCity] = useState('');
+    // useEffect(() => {
+    //     getWeatherForecast();
+    // }, []);
+    const handleSubmit = e => {
+        e.preventDefault();
+        // getWeatherForecast(city);
+    }
+
+    const handleChange = ({ target }) => {
+        setCity(target.value)
+    }
+    
 
     return (
-        <div className={styles.searchContainer}>
+        <form className={styles.searchContainer} onSubmit={handleSubmit}>
             <button className={styles.button}>
                 <Icon path={mdiHeart} size={1} color="white" />
             </button>
-            <input placeholder="Type location..." className={styles.input} />
+            
+            <input
+             placeholder="Type location..." 
+             className={styles.input} 
+             value={city}
+             onChange={handleChange}
+             />
+
             <button className={styles.button}>
                 <Icon path={mdiMenu} size={1} color="white" />
             </button>
-        </div>
+        </form >
     );
 }
 
-export default Search;
+const mapDispatchToProps = {
+    getWeatherForecast
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Search);
