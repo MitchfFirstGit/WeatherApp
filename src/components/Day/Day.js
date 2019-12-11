@@ -1,89 +1,50 @@
 // modules
 import React from 'react';
 import Icon from '@mdi/react';
-import { mdiWeatherPartlyCloudy  } from '@mdi/js';
+import { mdiWeatherPartlyCloudy } from '@mdi/js';
+import { connect } from 'react-redux';
+import moment from 'moment';
+// Redux
+import { setSelectedHour } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
-function Day() {
+const Day = ({
+    weatherHoursItems,
+    setSelectedHour
+}) => {
+    console.log(weatherHoursItems)
+    const handleClick = ({ currentTarget }) => {
+        setSelectedHour(currentTarget.id)
+    }
     return (
-            <ul className={styles.daysContainer}>
-                <li className={styles.dayInfo}>
+        <ul className={styles.daysContainer}>
+            {weatherHoursItems && weatherHoursItems.map(item => (
+                <li className={styles.dayInfo} id={moment(item.dt_txt).format('h a')} onClick={handleClick}>
                     <div className={styles.hour}>
-                        3am
+                        {moment(item.dt_txt).format('h a')}
                     </div>
-                    <Icon path={mdiWeatherPartlyCloudy } size={2.5} color="white" className={styles.weatherIcon}/>
+                    <Icon path={mdiWeatherPartlyCloudy} size={2.5} color="white" className={styles.weatherIcon} />
                     <div className={styles.temperature}>
-                        15
+                        {item.main.temp.toFixed(1)}
                     </div>
-                </li>
-                <li className={styles.dayInfo}>
-                    <div className={styles.hour}>
-                        3am
-                    </div>
-                    <Icon path={mdiWeatherPartlyCloudy } size={2.5} color="white" className={styles.weatherIcon}/>
-                    <div className={styles.temperature}>
-                        15
-                    </div>
-                </li>
-                <li className={styles.dayInfo}>
-                    <div className={styles.hour}>
-                        3am
-                    </div>
-                    <Icon path={mdiWeatherPartlyCloudy } size={2.5} color="white" className={styles.weatherIcon}/>
-                    <div className={styles.temperature}>
-                        15
-                    </div>
-                </li>
-                <li className={styles.dayInfo}>
-                    <div className={styles.hour}>
-                        3am
-                    </div>
-                    <Icon path={mdiWeatherPartlyCloudy } size={2.5} color="white" className={styles.weatherIcon}/>
-                    <div className={styles.temperature}>
-                        15
-                    </div>
-                </li>
-                <li className={styles.dayInfo}>
-                    <div className={styles.hour}>
-                        3am
-                    </div>
-                    <Icon path={mdiWeatherPartlyCloudy } size={2.5} color="white" className={styles.weatherIcon}/>
-                    <div className={styles.temperature}>
-                        15
-                    </div>
-                </li>
-                <li className={styles.dayInfo}>
-                    <div className={styles.hour}>
-                        3am
-                    </div>
-                    <Icon path={mdiWeatherPartlyCloudy } size={2.5} color="white" className={styles.weatherIcon}/>
-                    <div className={styles.temperature}>
-                        15
-                    </div>
-                </li>
-                <li className={styles.dayInfo}>
-                    <div className={styles.hour}>
-                        3am
-                    </div>
-                    <Icon path={mdiWeatherPartlyCloudy } size={2.5} color="white" className={styles.weatherIcon}/>
-                    <div className={styles.temperature}>
-                        15
-                    </div>
-                </li>
-                <li className={styles.dayInfo}>
-                    <div className={styles.hour}>
-                        3am
-                    </div>
-                    <Icon path={mdiWeatherPartlyCloudy } size={2.5} color="white" className={styles.weatherIcon}/>
-                    <div className={styles.temperature}>
-                        15
-                    </div>
-                </li>
-
-
-            </ul>
+                </li>))}
+        </ul>
     );
 }
 
-export default Day;
+
+const mapStateToProps = ({ weatherForecast: { weatherItems, selectedDay } }) => ({
+    weatherHoursItems: weatherItems.filter(item => moment(item.dt_txt).format('dddd') === selectedDay),
+});
+
+const mapDispatchToProps = {
+    setSelectedHour
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Day);
+
+// weatherHoursItems

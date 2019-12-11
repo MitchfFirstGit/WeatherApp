@@ -2,14 +2,16 @@ import {
     GET_WEATHER_FORECAST,
     CLEAR_WEATHER_FORECAST,
     ERROR_WEATHER_FORECAST,
-    SET_SELECTED_DAY
+    SET_SELECTED_DAY,
+    SET_SELECTED_HOUR,
 } from "../actions/constants";
 
 export const initialState = {
     weatherItems: [],
     loading: false,
     error: {},
-    selectedDay: ''
+    selectedDay: '',
+    selectedHour: ''
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +23,7 @@ export default (state = initialState, action) => {
                 ...state,
                 weatherItems: payload.weatherItems,
                 selectedDay: payload.selectedDay,
+                selectedHour: payload.selectedHour,
                 loading: false,
             };
 
@@ -42,9 +45,15 @@ export default (state = initialState, action) => {
         case SET_SELECTED_DAY:
             return {
                 ...state,
-                selectedDay: payload.selectedDay
+                selectedDay: payload.selectedDay,
+                selectedHour: payload.selectedHour
             };
 
+        case SET_SELECTED_HOUR:
+            return {
+                ...state,
+                selectedHour: payload.selectedHour
+            };
         default:
             return state
     }

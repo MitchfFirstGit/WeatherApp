@@ -28,7 +28,10 @@ const WeekDays = ({
   }, [weatherItems])
 
   const handleClick = ({ target }) => {
-    setSelectedDay(target.innerHTML);
+    const selectedDay = target.innerHTML;
+    const firstHourOfDay = weatherItems.find(item => moment(item.dt_txt).format('dddd') === target.innerHTML)
+
+    setSelectedDay(selectedDay, moment(firstHourOfDay.dt_txt).format('h a'));
   };
 
   return (
