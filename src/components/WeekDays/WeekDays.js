@@ -1,26 +1,55 @@
 // modules
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
+import moment from 'moment';
+import { connect } from 'react-redux';
+// Redux 
+import { setSelectedDay } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
-function WeekDays() {
-    const [activeDay, setActiveDay ] = useState('Today1');
-    const handleClick = ({target}) => {
-        setActiveDay(target.innerHTML)
-    };
+const WeekDays = ({
+  weatherItems,
+  setSelectedDay,
+  selectedDay
+}) => {
+  const [days, setDays] = useState(null);
 
-    return (
-            <ul className={styles.daysContainer}>
-                <li className={cx(styles.day, { [styles.activeDay]: activeDay === 'Today1' })} onClick={handleClick} >Today1</li>
-                <li className={cx(styles.day, { [styles.activeDay]: activeDay === 'Today2' })} onClick={handleClick}>Today2</li>
-                <li className={cx(styles.day, { [styles.activeDay]: activeDay === 'Today3' })} onClick={handleClick}>Today3</li>
-                <li className={cx(styles.day, { [styles.activeDay]: activeDay === 'Today4' })} onClick={handleClick}>Today4</li>
-                <li className={cx(styles.day, { [styles.activeDay]: activeDay === 'Today5' })} onClick={handleClick}>Today5</li>
-                <li className={cx(styles.day, { [styles.activeDay]: activeDay === 'Today6' })} onClick={handleClick}>Today6</li>
-                <li className={cx(styles.day, { [styles.activeDay]: activeDay === 'Today7' })} onClick={handleClick}>Today7</li>
-            </ul>
-    );
+  useEffect(() => {
+    if (weatherItems.length > 0) {
+      let uniqueDays = new Set();
+
+      weatherItems.forEach(item => {
+        uniqueDays.add(moment(item.dt_txt).format('dddd'))
+      })
+
+      setDays([...uniqueDays]);
+    }
+  }, [weatherItems])
+
+  const handleClick = ({ target }) => {
+    setSelectedDay(target.innerHTML);
+  };
+
+  return (
+    <ul className={styles.daysContainer}>
+      {days &&
+        days.map(item => <li className={cx(styles.day, { [styles.activeDay]: selectedDay === item })} onClick={handleClick} >{item}</li>)
+      }
+    </ul>
+  );
 }
 
-export default WeekDays;
+const mapStateToProps = state => ({
+  weatherItems: state.weatherForecast.weatherItems,
+  selectedDay: state.weatherForecast.selectedDay
+});
+
+const mapDispatchToProps = {
+  setSelectedDay
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WeekDays);

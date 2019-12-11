@@ -1,9 +1,15 @@
-import { GET_WEATHER_FORECAST, CLEAR_WEATHER_FORECAST, WEATHER_ITEMS_FORECAST } from "../actions/constants";
+import {
+    GET_WEATHER_FORECAST,
+    CLEAR_WEATHER_FORECAST,
+    ERROR_WEATHER_FORECAST,
+    SET_SELECTED_DAY
+} from "../actions/constants";
 
 export const initialState = {
     weatherItems: [],
     loading: false,
     error: {},
+    selectedDay: ''
 };
 
 export default (state = initialState, action) => {
@@ -13,22 +19,31 @@ export default (state = initialState, action) => {
         case GET_WEATHER_FORECAST:
             return {
                 ...state,
-                weatherItems: payload.weatherItems
+                weatherItems: payload.weatherItems,
+                selectedDay: payload.selectedDay,
+                loading: false,
             };
 
-        // case CLEAR_WEATHER_ITEMS:
-        //     return {
-        //         ...state,
-        //         profile: null,
-        //         loading: false
-        //     }
+        case CLEAR_WEATHER_FORECAST:
+            return {
+                ...state,
+                weatherItems: [],
+                loading: true,
+                error: {}
+            }
 
-        // case WEATHER_ITEMS_ERROR:
-        //     return {
-        //         ...state,
-        //         error: payload,
-        //         loading: false
-        //     };
+        case ERROR_WEATHER_FORECAST:
+            return {
+                ...state,
+                error: { message: payload.errorMessage },
+                loading: false
+            };
+
+        case SET_SELECTED_DAY:
+            return {
+                ...state,
+                selectedDay: payload.selectedDay
+            };
 
         default:
             return state

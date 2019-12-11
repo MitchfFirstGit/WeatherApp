@@ -1,5 +1,5 @@
 // modules
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Icon from '@mdi/react';
 import { mdiHeart, mdiMenu } from '@mdi/js';
 import { connect } from 'react-redux';
@@ -12,18 +12,15 @@ const Search = ({
     getWeatherForecast
 }) => {
     const [city, setCity] = useState('');
-    // useEffect(() => {
-    //     getWeatherForecast();
-    // }, []);
+
     const handleSubmit = e => {
         e.preventDefault();
-        // getWeatherForecast(city);
+        getWeatherForecast(city);
     }
 
     const handleChange = ({ target }) => {
         setCity(target.value)
     }
-    
 
     return (
         <form className={styles.searchContainer} onSubmit={handleSubmit}>
