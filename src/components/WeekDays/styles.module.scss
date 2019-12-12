@@ -1,22 +1,45 @@
-  .daysContainer {
-    color: white;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    overflow: auto;
-    padding-bottom: 10px;
+.daysContainer {
+  color: white;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  overflow: auto;
+  padding-bottom: 10px;
 
-    .day {
-      font-size: 1.5rem;
-      padding-bottom: 5px;
-      min-width: 90px;
-      text-align: center;
-      margin: 0 5px;
-      cursor: pointer;
+  .day {
+    position: relative;
+    font-size: 1.5rem;
+    min-width: 90px;
+    text-align: center;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: text-shadow 0.2s ease-out;
+
+    &:hover {
+      text-shadow: 0px 0px 4px;
     }
 
-    .activeDay {
-      border-bottom: 2px solid white;
+    &:after {
+      position: absolute;
+      content: "";
+      display: block;
+      height: 2px;
+      width: 0;
+      bottom: -5px;
+      background: white;
+      transition: width ease-in-out 0.2s;
     }
   }
+
+  .activeDay {
+    &:hover {
+      text-shadow: none;
+      transition: text-shadow 0.2s ease-out;
+    }
+
+    &:after {
+      width: 100%;
+    }
+  }
+}

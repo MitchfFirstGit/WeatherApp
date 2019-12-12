@@ -7,6 +7,7 @@ import {
 } from "../actions/constants";
 
 export const initialState = {
+    mainInfo: {},
     weatherItems: [],
     loading: false,
     error: {},
@@ -21,6 +22,7 @@ export default (state = initialState, action) => {
         case GET_WEATHER_FORECAST:
             return {
                 ...state,
+                mainInfo: payload.mainInfo,
                 weatherItems: payload.weatherItems,
                 selectedDay: payload.selectedDay,
                 selectedHour: payload.selectedHour,
@@ -30,6 +32,7 @@ export default (state = initialState, action) => {
         case CLEAR_WEATHER_FORECAST:
             return {
                 ...state,
+                mainInfo: {},
                 weatherItems: [],
                 loading: true,
                 error: {}

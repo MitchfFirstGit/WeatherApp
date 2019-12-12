@@ -1,4 +1,4 @@
-.daysContainer {
+.hoursContainer {
   display: flex;
   color: white;
   justify-content: space-between;
@@ -6,7 +6,7 @@
   margin-right: 10px;
   padding: 0;
 
-  .dayInfo {
+  .hourInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,6 +16,7 @@
     margin: 0 10px;
     cursor: pointer;
     margin-bottom: 15px;
+    border: 1px solid transparent;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.3);
@@ -36,5 +37,9 @@
         font-size: 1.2rem;
       }
     }
+  }
+
+  .activeHour {
+    border: 1px solid white;
   }
 }

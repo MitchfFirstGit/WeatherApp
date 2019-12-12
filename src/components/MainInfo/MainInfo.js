@@ -1,50 +1,53 @@
 // modules
 import React from 'react';
 import Icon from '@mdi/react';
-import { mdiWeatherWindy, mdiWaterOutline  } from '@mdi/js';
+import { mdiWeatherWindy, mdiWaterOutline } from '@mdi/js';
 import { connect } from 'react-redux';
 import moment from 'moment';
 // styles
 import styles from './styles.module.scss';
 
 const MainInfo = ({
-    selectedWeaterItem
-  }) => {
-      console.log(selectedWeaterItem)
+    selectedWeaterItem,
+    mainInfo
+}) => {
     return (
-        <div className={styles.infoContainer}>
-            <div className={styles.city}>
-                London, UK
-            </div>
-
-            <div className={styles.date}>
-                Mon, 10 February
-            </div>
-
-            <div className={styles.temperature}>
-                {selectedWeaterItem && selectedWeaterItem.main.temp.toFixed(1)}
-            </div>
-
-            <div className={styles.wrapper}>
-                <div className={styles.wind}>
-                    <Icon path={mdiWeatherWindy} size={1.2} color="white"/>
-                    8.7 m/s
+        <>
+            {selectedWeaterItem && <div className={styles.infoContainer}>
+                <div className={styles.city}>
+                    {`${mainInfo.city.name}, ${mainInfo.city.country}`}
                 </div>
 
-                <div className={styles.humidity}>
-                    <Icon path={mdiWaterOutline} size={1.2} color="white"/>
-                    70%
+                <div className={styles.date}>
+                    {moment(selectedWeaterItem.dt_txt).format('ddd, D MMMM')}
                 </div>
-            </div>
-        </div>
+
+                <div className={styles.temperature}>
+                    {selectedWeaterItem && selectedWeaterItem.main.temp.toFixed(1)}
+                </div>
+
+                <div className={styles.wrapper}>
+                    <div className={styles.wind}>
+                        <Icon path={mdiWeatherWindy} size={1.2} color="white" />
+                        {selectedWeaterItem.wind.speed.toFixed(1)} m/s
+                </div>
+
+                    <div className={styles.humidity}>
+                        <Icon path={mdiWaterOutline} size={1.2} color="white" />
+                        {selectedWeaterItem.main.humidity}%
+                </div>
+                </div>
+            </div>}
+        </>
     );
 }
 
-const mapStateToProps = ({weatherForecast: { weatherItems, selectedDay, selectedHour } }) => ({
-    selectedWeaterItem: weatherItems.find( item => moment(item.dt_txt).format('dddd') === selectedDay &&  moment(item.dt_txt).format('h a') === selectedHour)
+const mapStateToProps = ({ weatherForecast: { weatherItems, selectedDay, selectedHour, mainInfo } }) => ({
+    selectedWeaterItem: weatherItems.find(item => moment(item.dt_txt).format('dddd') === selectedDay && moment(item.dt_txt).format('h a') === selectedHour),
+    mainInfo
 });
-  
-  export default connect(
+
+export default connect(
     mapStateToProps
-  )(MainInfo);
+)(MainInfo);
 
