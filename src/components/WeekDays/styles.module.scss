@@ -5,12 +5,12 @@
   justify-content: space-between;
   padding: 0;
   overflow: auto;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 
   .day {
     position: relative;
     font-size: 1.5rem;
-    min-width: 90px;
+    min-width: 95px;
     text-align: center;
     margin: 0 5px;
     cursor: pointer;
@@ -29,6 +29,14 @@
       bottom: -5px;
       background: white;
       transition: width ease-in-out 0.2s;
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+  
+    &:last-child {
+      margin-right: 0;
     }
   }
 

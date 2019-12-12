@@ -1,10 +1,9 @@
 .hoursContainer {
   display: flex;
   color: white;
-  justify-content: space-between;
   overflow: auto;
-  margin-right: 10px;
   padding: 0;
+  margin-bottom: 0;
 
   .hourInfo {
     display: flex;
@@ -24,18 +23,28 @@
 
     .hour {
       font-size: 1.5rem;
+      margin: 3px 0;
     }
 
     .temperature {
       font-size: 1.6rem;
       position: relative;
       margin-right: 10px;
+      margin-bottom: 3px;
 
       &:after {
         content: "°";
         position: absolute;
         font-size: 1.2rem;
       }
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
     }
   }
 

@@ -1,7 +1,7 @@
 // modules
 import React from 'react';
 import Icon from '@mdi/react';
-import { mdiWeatherWindy, mdiWaterOutline } from '@mdi/js';
+import { mdiWeatherWindy, mdiWaterOutline, mdiWeatherSunsetUp, mdiWeatherSunsetDown } from '@mdi/js';
 import { connect } from 'react-redux';
 import moment from 'moment';
 // styles
@@ -27,6 +27,11 @@ const MainInfo = ({
                 </div>
 
                 <div className={styles.wrapper}>
+                    <div className={styles.sunrise}>
+                        <Icon path={mdiWeatherSunsetUp} size={1.2} color="white" />
+                        {`${moment(new Date(mainInfo.city.sunrise * 1000)).format('HH:mm')} h`}
+                    </div>
+
                     <div className={styles.wind}>
                         <Icon path={mdiWeatherWindy} size={1.2} color="white" />
                         {selectedWeaterItem.wind.speed.toFixed(1)} m/s
@@ -36,6 +41,11 @@ const MainInfo = ({
                         <Icon path={mdiWaterOutline} size={1.2} color="white" />
                         {selectedWeaterItem.main.humidity}%
                 </div>
+
+                <div className={styles.sunset}>
+                        <Icon path={mdiWeatherSunsetDown} size={1.2} color="white" />
+                        {`${moment(new Date(mainInfo.city.sunset * 1000)).format('HH:mm')} h`}
+                    </div>
                 </div>
             </div>}
         </>

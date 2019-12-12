@@ -17,7 +17,7 @@ const App = ({
 }) => {
   useEffect(() => {
     getWeatherForecast();
-}, []);
+}, [getWeatherForecast]);
 
   return (
     <div className={styles.container}>

@@ -5,7 +5,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to top, #55C5E0, #79ddd5);
-  height: 100vh;
 }
 
+body::before {
+	content: '';
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1; 
+	background:#e55d87;
+	background: linear-gradient(to top, #55C5E0, #79ddd5);;
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 14px;
+  }
+}

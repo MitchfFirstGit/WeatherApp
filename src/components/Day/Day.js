@@ -18,12 +18,17 @@ const Day = ({
     const handleClick = ({ currentTarget }) => {
         setSelectedHour(currentTarget.id)
     }
+    
     return (
         <ul className={styles.hoursContainer}>
             {weatherHoursItems && weatherHoursItems.map(item => (
-                <li className={cx(styles.hourInfo, { [styles.activeHour]: selectedHour === moment(item.dt_txt).format('h a') })} id={moment(item.dt_txt).format('h a')} onClick={handleClick}>
+                <li className=
+                    {cx(styles.hourInfo, { [styles.activeHour]: selectedHour === moment(item.dt_txt).format('h a') })}
+                    id={moment(item.dt_txt).format('h a')}
+                    onClick={handleClick}
+                >
                     <div className={styles.hour}>
-                        {moment(item.dt_txt).format('h a')}
+                        {moment(item.dt_txt).format('HH:mm')}
                     </div>
 
                     <Icon path={mdiWeatherPartlyCloudy} size={2.5} color="white" className={styles.weatherIcon} />
