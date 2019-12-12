@@ -2,10 +2,15 @@
 import React from 'react';
 import Icon from '@mdi/react';
 import { mdiWeatherWindy, mdiWaterOutline  } from '@mdi/js';
+import { connect } from 'react-redux';
+import moment from 'moment';
 // styles
 import styles from './styles.module.scss';
 
-function MainInfo() {
+const MainInfo = ({
+    selectedWeaterItem
+  }) => {
+      console.log(selectedWeaterItem)
     return (
         <div className={styles.infoContainer}>
             <div className={styles.city}>
@@ -17,7 +22,7 @@ function MainInfo() {
             </div>
 
             <div className={styles.temperature}>
-                23
+                {selectedWeaterItem && selectedWeaterItem.main.temp.toFixed(1)}
             </div>
 
             <div className={styles.wrapper}>
@@ -35,4 +40,11 @@ function MainInfo() {
     );
 }
 
-export default MainInfo;
+const mapStateToProps = ({weatherForecast: { weatherItems, selectedDay, selectedHour } }) => ({
+    selectedWeaterItem: weatherItems.find( item => moment(item.dt_txt).format('dddd') === selectedDay &&  moment(item.dt_txt).format('h a') === selectedHour)
+});
+  
+  export default connect(
+    mapStateToProps
+  )(MainInfo);
+

@@ -13,7 +13,6 @@ const Day = ({
     weatherHoursItems,
     setSelectedHour
 }) => {
-    console.log(weatherHoursItems)
     const handleClick = ({ currentTarget }) => {
         setSelectedHour(currentTarget.id)
     }
@@ -46,5 +45,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Day);
-
-// weatherHoursItems

@@ -29,7 +29,8 @@ export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
             payload: {
                 weatherItems: data.list,
                 selectedDay: moment(data.list[0].dt_txt).format('dddd'),
-                selectedHour: moment(data.list[0].dt_txt).format('h a')
+                selectedHour: moment(data.list[0].dt_txt).format('h a'),
+                selectedCity: data.city.name
             }
         });
     } catch (err) {
