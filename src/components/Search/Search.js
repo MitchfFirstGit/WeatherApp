@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Icon from '@mdi/react';
 import { mdiHeart, mdiMenu, mdiMagnify } from '@mdi/js';
 import { connect } from 'react-redux';
+import AutocompleteInput from '../AutocompleteInput';
 // Redux
 import { getWeatherForecast } from '../../actions/actions';
 // styles
@@ -11,15 +12,16 @@ import styles from './styles.module.scss';
 const Search = ({
     getWeatherForecast
 }) => {
-    const [city, setCity] = useState('');
+    const [inputValue, setInputValue] = useState('');
 
-    const handleSubmit = e => {
+    const handleSubmit = (e, value) => {
         e.preventDefault();
-        getWeatherForecast(city);
+        
+        if(inputValue || value) getWeatherForecast(value ? value : inputValue);
     }
 
-    const handleChange = ({ target }) => {
-        setCity(target.value)
+    const handleChange = (value) => {
+        setInputValue(value);
     }
 
     return (
@@ -29,12 +31,8 @@ const Search = ({
             </button>
 
             <form onSubmit={handleSubmit} className={styles.form}>
-                <input
-                    placeholder="Type location..."
-                    className={styles.input}
-                    value={city}
-                    onChange={handleChange}
-                />
+
+                <AutocompleteInput inputValue={inputValue} onInputChange={handleChange} onCityClick={handleSubmit}/>
                 
                 <button className={styles.searchButton}>
                     <Icon path={mdiMagnify} size={1} color="white" />
