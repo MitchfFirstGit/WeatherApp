@@ -1,7 +1,7 @@
 // modules
 import React, { useState } from 'react';
 import Icon from '@mdi/react';
-import { mdiHeart, mdiMenu } from '@mdi/js';
+import { mdiHeart, mdiMenu, mdiMagnify } from '@mdi/js';
 import { connect } from 'react-redux';
 // Redux
 import { getWeatherForecast } from '../../actions/actions';
@@ -23,22 +23,28 @@ const Search = ({
     }
 
     return (
-        <form className={styles.searchContainer} onSubmit={handleSubmit}>
+        <div className={styles.searchContainer}>
             <button className={styles.button}>
                 <Icon path={mdiHeart} size={1} color="white" />
             </button>
-            
-            <input
-             placeholder="Type location..." 
-             className={styles.input} 
-             value={city}
-             onChange={handleChange}
-             />
+
+            <form onSubmit={handleSubmit} className={styles.form}>
+                <input
+                    placeholder="Type location..."
+                    className={styles.input}
+                    value={city}
+                    onChange={handleChange}
+                />
+                
+                <button className={styles.searchButton}>
+                    <Icon path={mdiMagnify} size={1} color="white" />
+                </button>
+            </form >
 
             <button className={styles.button}>
                 <Icon path={mdiMenu} size={1} color="white" />
             </button>
-        </form >
+        </div>
     );
 }
 

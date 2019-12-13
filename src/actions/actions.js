@@ -13,7 +13,7 @@ const apiKey = 'de1e94c85ef8c5b5b4456417ebd24daf';
 export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
     dispatch({ type: CLEAR_WEATHER_FORECAST });
 
-    const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${apiKey}`
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${apiKey}`
 
     try {
         const res = await fetch(url);

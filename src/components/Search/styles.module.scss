@@ -5,9 +5,16 @@
   align-items: center;
 }
 
-.input {
+.form {
+  display: flex;
   width: 100%;
   margin: 0 20px;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding-left: 0;
   height: 35px;
   font-size: 1.3rem;
   background-color: rgba(255, 255, 255, 0.3);
@@ -15,6 +22,7 @@
   color: white;
   outline: none;
   padding-left: 5px;
+  margin-left: -5px;
   border-radius: 5px;
 
   &:hover {
@@ -26,7 +34,8 @@
   }
 }
 
-.button {
+.button,
+.searchButton {
   cursor: pointer;
   outline: none;
   background-color: rgba(255, 255, 255, 0.3);
@@ -37,5 +46,15 @@
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.searchButton {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+
+  &:hover {
+    background-color: transparent;
   }
 }
