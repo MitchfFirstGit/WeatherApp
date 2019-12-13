@@ -4,7 +4,7 @@ For weather forecast I use [openweathermap](https://openweathermap.org/) api.
 ## Current state
 User can view 5 days forecast at any location or city, it includes weather data every 3 hours
 ## Future plans
-Conver app to PWA application, add favorite cities, add autocomplete
+Convert app to PWA application, add favorite cities
 ## Technologies
 * React Hooks
 * Redux
