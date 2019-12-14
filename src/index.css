@@ -16,7 +16,7 @@ body::before {
 	bottom: 0;
 	z-index: -1; 
 	background:#e55d87;
-	background: linear-gradient(to top, #55C5E0, #79ddd5);;
+	background: linear-gradient(to top, #55C5E0, #79ddd5);
 }
 
 @media (max-width: 400px) {

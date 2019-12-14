@@ -10,14 +10,18 @@ import { getWeatherForecast } from '../../actions/actions';
 import styles from './styles.module.scss';
 
 const Search = ({
-    getWeatherForecast
+    getWeatherForecast,
+    handleMenuClick
 }) => {
     const [inputValue, setInputValue] = useState('');
 
     const handleSubmit = (e, value) => {
         e.preventDefault();
-        
-        if(inputValue || value) getWeatherForecast(value ? value : inputValue);
+
+        if (inputValue || value) {
+            getWeatherForecast(value ? value : inputValue)
+            setInputValue('');
+        };
     }
 
     const handleChange = (value) => {
@@ -32,14 +36,14 @@ const Search = ({
 
             <form onSubmit={handleSubmit} className={styles.form}>
 
-                <AutocompleteInput inputValue={inputValue} onInputChange={handleChange} onCityClick={handleSubmit}/>
-                
+                <AutocompleteInput inputValue={inputValue} onInputChange={handleChange} onCityClick={handleSubmit} />
+
                 <button className={styles.searchButton}>
                     <Icon path={mdiMagnify} size={1} color="white" />
                 </button>
             </form >
 
-            <button className={styles.button}>
+            <button className={styles.button} onClick={handleMenuClick}>
                 <Icon path={mdiMenu} size={1} color="white" />
             </button>
         </div>

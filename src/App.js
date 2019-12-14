@@ -1,43 +1,46 @@
 // modules
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 // components
 import Search from './components/Search';
 import MainInfo from './components/MainInfo';
 import WeekDays from './components/WeekDays';
 import Day from './components/Day';
+import Menu from './components/Menu';
 // Redux
 import { getWeatherForecast } from './actions/actions';
 // styles
 import styles from './styles.module.scss'
 
 const App = ({
-  weatherForecast,
   getWeatherForecast
 }) => {
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleMenuVisibility = () => {
+    setShowMenu(!showMenu);
+  }
+
   useEffect(() => {
     getWeatherForecast();
-}, [getWeatherForecast]);
+  }, [getWeatherForecast]);
 
   return (
     <div className={styles.container}>
-      <Search />
+      <Search handleMenuClick={handleMenuVisibility} />
       <MainInfo />
       <WeekDays />
       <Day />
+      <Menu handleMenuClick={handleMenuVisibility} menuVisibility={showMenu} />
     </div>
   );
 }
-
-const mapStateToProps = state => ({
-  weatherForecast: state.weatherForecast,
-});
 
 const mapDispatchToProps = {
   getWeatherForecast
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(App);
