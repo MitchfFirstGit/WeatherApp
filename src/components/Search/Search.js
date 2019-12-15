@@ -30,8 +30,9 @@ const Search = ({
 
     return (
         <div className={styles.searchContainer}>
-            <button className={styles.button} onClick={handleMenuClick}>
-                <Icon path={mdiMenu} size={1} color="white" />
+
+            <button className={styles.button}>
+                <Icon path={mdiHeart} size={1} color="white" />
             </button>
 
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -43,9 +44,10 @@ const Search = ({
                 </button>
             </form >
 
-            <button className={styles.button}>
-                <Icon path={mdiHeart} size={1} color="white" />
+            <button className={styles.button} onClick={handleMenuClick}>
+                <Icon path={mdiMenu} size={1} color="white" />
             </button>
+
 
         </div>
     );
