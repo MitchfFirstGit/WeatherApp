@@ -27,7 +27,7 @@ const App = ({
 
   return (
     <div className={styles.container}>
-      <Search handleMenuClick={handleMenuVisibility} />
+      <Search />
       <MainInfo />
       <WeekDays />
       <Day />

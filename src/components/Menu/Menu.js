@@ -4,11 +4,14 @@ import cx from 'classnames';
 import { mdiClose, mdiDelete } from '@mdi/js';
 import Icon from '@mdi/react';
 import AnimateHeight from 'react-animate-height';
+import { connect } from 'react-redux';
+// Redux
+import { setMenuVisibility } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
 const Menu = ({
-    handleMenuClick,
+    setMenuVisibility,
     menuVisibility
 }) => {
     const [showFavoriteCities, setShowFavoriteCities] = useState(0);
@@ -22,10 +25,14 @@ const Menu = ({
         setRecentlyViewedCities(showRecentlyViewedCities === 0 ? 'auto' : 0);
     }
 
+    const handleCloseMenuClick = () => {
+        setMenuVisibility(!menuVisibility);
+    }
+
     return (
-        <>
+        <div className={ menuVisibility && styles.overlay}>
             <div className={cx(styles.menuContainer, { [styles.menuContainerOpen]: menuVisibility })}>
-                <Icon path={mdiClose} size={1} className={styles.closeIcon} onClick={handleMenuClick} />
+                <Icon path={mdiClose} size={1} className={styles.closeIcon} onClick={handleCloseMenuClick} />
 
                 <ul className={styles.menuList}>
                     <li className={styles.item} onClick={handleFavoriteCitiesClick}>
@@ -96,8 +103,19 @@ const Menu = ({
                     </li>
                 </ul>
             </div>
-        </>
+        </div>
     );
 }
 
-export default Menu;
+const mapStateToProps = state => ({
+    menuVisibility: state.menuVisibility,
+  });
+  
+  const mapDispatchToProps = {
+    setMenuVisibility
+  };
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Menu);

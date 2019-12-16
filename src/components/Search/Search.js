@@ -5,13 +5,14 @@ import { mdiHeart, mdiMenu, mdiMagnify } from '@mdi/js';
 import { connect } from 'react-redux';
 import AutocompleteInput from '../AutocompleteInput';
 // Redux
-import { getWeatherForecast } from '../../actions/actions';
+import { getWeatherForecast, setMenuVisibility } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
 const Search = ({
     getWeatherForecast,
-    handleMenuClick
+    setMenuVisibility,
+    menuVisibility,
 }) => {
     const [inputValue, setInputValue] = useState('');
 
@@ -28,9 +29,12 @@ const Search = ({
         setInputValue(value);
     }
 
+    const handleMenuClick = () => {
+        setMenuVisibility(!menuVisibility);
+    }
+
     return (
         <div className={styles.searchContainer}>
-
             <button className={styles.button}>
                 <Icon path={mdiHeart} size={1} color="white" />
             </button>
@@ -47,17 +51,20 @@ const Search = ({
             <button className={styles.button} onClick={handleMenuClick}>
                 <Icon path={mdiMenu} size={1} color="white" />
             </button>
-
-
         </div>
     );
 }
 
+const mapStateToProps = state => ({
+    menuVisibility: state.menuVisibility,
+  });
+
 const mapDispatchToProps = {
-    getWeatherForecast
+    getWeatherForecast,
+    setMenuVisibility
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(Search);

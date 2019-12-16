@@ -6,6 +6,7 @@ import {
     ERROR_WEATHER_FORECAST,
     SET_SELECTED_DAY,
     SET_SELECTED_HOUR,
+    SET_MENU_VISIBILITY,
 } from './constants';
 
 const apiKey = 'de1e94c85ef8c5b5b4456417ebd24daf';
@@ -61,3 +62,12 @@ export const setSelectedHour = (selectedHour) => dispatch => {
         }
     });
 }
+
+export const setMenuVisibility = (value) => dispatch => {
+    dispatch({
+        type: SET_MENU_VISIBILITY,
+        payload: {
+            value
+        }
+    });
+};
