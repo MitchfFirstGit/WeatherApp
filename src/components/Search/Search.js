@@ -50,7 +50,7 @@ const Search = ({
                 </button>
             </form >
 
-            <button className={cx(styles.menuButton, {[styles.closeButton]: menuVisibility})} onClick={handleMenuClick}>
+            <button className={cx(styles.menuButton, { [styles.closeButton]: menuVisibility })} onClick={handleMenuClick}>
                 <div className={styles.middleLine} />
             </button>
         </div>
@@ -59,7 +59,7 @@ const Search = ({
 
 const mapStateToProps = state => ({
     menuVisibility: state.menuVisibility,
-  });
+});
 
 const mapDispatchToProps = {
     getWeatherForecast,

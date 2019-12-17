@@ -13,14 +13,13 @@
   top: 0;
   bottom: 0;
   transition: width 0.3s ease-out;
-  color: #2398AB;
+  color: #2398ab;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 15px 15px 0 15px;
   right: 0;
   width: 240px;
   transform: translateX(100%);
   transition: transform 0.3s ease-out;
-
 }
 
 .menuContainerOpen {
@@ -29,7 +28,7 @@
 
 .closeIcon {
   cursor: pointer;
-  fill: #2398AB;
+  fill: #2398ab;
 }
 
 .menuList {
@@ -65,7 +64,7 @@
       width: 20px;
       height: 20px;
       margin-right: 10px;
-      fill: #2398AB;
+      fill: #2398ab;
     }
 
     &:hover {
