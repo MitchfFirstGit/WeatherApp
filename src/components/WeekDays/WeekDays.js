@@ -37,7 +37,13 @@ const WeekDays = ({
   return (
     <ul className={styles.daysContainer}>
       {days &&
-        days.map(item => <li className={cx(styles.day, { [styles.activeDay]: selectedDay === item })} onClick={handleClick} >{item}</li>)
+        days.map(item => <li
+          className={cx(styles.day, { [styles.activeDay]: selectedDay === item })}
+          onClick={handleClick}
+          key={item}
+        >
+          {item}
+        </li>)
       }
     </ul>
   );

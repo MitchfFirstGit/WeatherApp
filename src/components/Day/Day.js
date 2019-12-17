@@ -26,6 +26,7 @@ const Day = ({
                     {cx(styles.hourInfo, { [styles.activeHour]: selectedHour === moment(item.dt_txt).format('h a') })}
                     id={moment(item.dt_txt).format('h a')}
                     onClick={handleClick}
+                    key={moment(item.dt_txt).format('h a')}
                 >
                     <div className={styles.hour}>
                         {moment(item.dt_txt).format('HH:mm')}
