@@ -23,7 +23,9 @@ const Menu = ({
     }
 
     return (
-        <div className={ menuVisibility && styles.overlay}>
+        <>
+            <div className={menuVisibility && styles.overlay}> </div>
+
             <div className={cx(styles.menuContainer, { [styles.menuContainerOpen]: menuVisibility })}>
                 <ul className={styles.menuList}>
                     <li className={styles.item} onClick={handleFavoriteCitiesClick}>
@@ -94,14 +96,14 @@ const Menu = ({
                     </li>
                 </ul>
             </div>
-        </div>
+        </>
     );
 }
 
 const mapStateToProps = state => ({
     menuVisibility: state.menuVisibility,
-  });
-  
-  export default connect(
+});
+
+export default connect(
     mapStateToProps
-  )(Menu);
+)(Menu);
