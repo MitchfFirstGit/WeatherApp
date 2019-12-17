@@ -9,7 +9,7 @@ import AutocompleteInput from '../AutocompleteInput';
 // services
 import { LocalStorageService } from '../../services/storage';
 // Redux
-import { getWeatherForecast, setMenuVisibility } from '../../actions/actions';
+import { getWeatherForecast, setMenuVisibility, addToFavoriteCitiesList } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
@@ -17,7 +17,8 @@ const Search = ({
     getWeatherForecast,
     setMenuVisibility,
     menuVisibility,
-    currentCity
+    currentCity,
+    addToFavoriteCitiesList
 }) => {
     const [inputValue, setInputValue] = useState('');
 
@@ -40,23 +41,24 @@ const Search = ({
 
     const handleFavoriteIconClick = () => {
         const favoriteCitiesKey = 'favoriteCities';
-        let favoriteCitiesList = LocalStorageService.getItem(favoriteCitiesKey, true);
+        // let favoriteCitiesList = LocalStorageService.getItem(favoriteCitiesKey, true);
 
-        if (favoriteCitiesList) {
-            if (favoriteCitiesList.length < 5) {
-                favoriteCitiesList.push(currentCity);
-                LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
-            } else {
-                favoriteCitiesList.shift();
-                favoriteCitiesList.push(currentCity);
-                LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
-            }
-        } else {
-            // favoriteCitiesList doesn't exist
-            favoriteCitiesList = [];
-            favoriteCitiesList.push(currentCity);
-            LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
-        }
+        // if (favoriteCitiesList) {
+        //     if (favoriteCitiesList.length < 5) {
+        //         favoriteCitiesList.push(currentCity);
+        //         LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
+        //     } else {
+        //         favoriteCitiesList.shift();
+        //         favoriteCitiesList.push(currentCity);
+        //         LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
+        //     }
+        // } else {
+        //     // favoriteCitiesList doesn't exist
+        //     favoriteCitiesList = [];
+        //     favoriteCitiesList.push(currentCity);
+        //     LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
+        // }
+        addToFavoriteCitiesList(currentCity);
     }
 
     return (
@@ -81,14 +83,16 @@ const Search = ({
     );
 }
 
-const mapStateToProps = ({weatherForecast, menuVisibility}) => ({
+const mapStateToProps = ({ weatherForecast, menuVisibility, favoriteCitiesList }) => ({
     currentCity: weatherForecast.mainInfo.city && `${weatherForecast.mainInfo.city.name}, ${weatherForecast.mainInfo.city.country}`,
-    menuVisibility
+    menuVisibility,
+    favoriteCitiesList,
 });
 
 const mapDispatchToProps = {
     getWeatherForecast,
-    setMenuVisibility
+    setMenuVisibility,
+    addToFavoriteCitiesList
 };
 
 export default connect(

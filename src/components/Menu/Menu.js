@@ -15,6 +15,7 @@ const Menu = ({
 }) => {
     const [showFavoriteCities, setShowFavoriteCities] = useState(0);
     const [showRecentlyViewedCities, setRecentlyViewedCities] = useState(0);
+    // const [favoriteCitiesList, setFavoriteCitiesList] = useState(LocalStorageService.getItem('favoriteCities', true) || null);
 
     const handleFavoriteCitiesClick = () => {
         setShowFavoriteCities(showFavoriteCities === 0 ? 'auto' : 0);
@@ -25,19 +26,19 @@ const Menu = ({
     }
 
     const handleRemoveFavoriteCity = ({ currentTarget }) => {
-        const favoriteCitiesList = LocalStorageService.getItem('favoriteCities', true);
-        const filteredCitiesList = favoriteCitiesList.filter( city => city !== currentTarget.id );
+        // const favoriteCitiesList = LocalStorageService.getItem('favoriteCities', true);
 
-        LocalStorageService.setItem('favoriteCities' ,filteredCitiesList, true);
+        // const filteredCitiesList = favoriteCitiesList.filter(city => city !== currentTarget.id);
+
+        // LocalStorageService.setItem('favoriteCities', filteredCitiesList, true);
+        // setFavoriteCitiesList(filteredCitiesList);
     }
 
     const renderFavoriteCities = () => {
-        const favoriteCitiesList = LocalStorageService.getItem('favoriteCities', true);
-
-        if (favoriteCitiesList) return favoriteCitiesList.map(city => <div className={styles.city} key={city}>
-            {city}
-            <Icon path={mdiDelete} onClick={handleRemoveFavoriteCity} id={city} />
-        </div>)
+        // if (favoriteCitiesList) return favoriteCitiesList.map(city => <div className={styles.city} key={city}>
+        //     {city}
+        //     <Icon path={mdiDelete} onClick={handleRemoveFavoriteCity} id={city} />
+        // </div>)
 
         return <div className={styles.noCities}>
             You don't have any favorite cities, click heart button to add one

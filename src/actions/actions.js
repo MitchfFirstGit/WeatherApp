@@ -7,6 +7,7 @@ import {
     SET_SELECTED_DAY,
     SET_SELECTED_HOUR,
     SET_MENU_VISIBILITY,
+    ADD_TO_FAVORITE_CITIES_LIST,
 } from './constants';
 
 const apiKey = 'de1e94c85ef8c5b5b4456417ebd24daf';
@@ -71,3 +72,13 @@ export const setMenuVisibility = (value) => dispatch => {
         }
     });
 };
+
+export const addToFavoriteCitiesList = (city) => dispatch => {
+    dispatch({
+        type: ADD_TO_FAVORITE_CITIES_LIST,
+        payload: {
+            city
+        }
+    });
+};
+
