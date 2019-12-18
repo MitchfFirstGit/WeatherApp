@@ -8,7 +8,12 @@ import {
     SET_SELECTED_HOUR,
     SET_MENU_VISIBILITY,
     ADD_TO_FAVORITE_CITIES_LIST,
+    REMOVE_FROM_FAVORITE_CITIES_LIST,
+    ADD_TO_LAST_VIEWED_CITIES,
+    REMOVE_FROM_LAST_VIEWED_CITIES,
 } from './constants';
+
+import { LocalStorageService } from '../services/storage';
 
 const apiKey = 'de1e94c85ef8c5b5b4456417ebd24daf';
 
@@ -73,12 +78,82 @@ export const setMenuVisibility = (value) => dispatch => {
     });
 };
 
+const addCityToLocalStorage = (city, key) => {
+    const citiesList = LocalStorageService.getItem(key);
+    citiesList.push(city);
+    const uniqueCities = [...new Set(citiesList)];
+
+    LocalStorageService.setItem(key, uniqueCities);
+
+    return uniqueCities;
+}
+
+const removeCityFromLocalStorage = (city, key) => {
+    const citiesList = LocalStorageService.getItem(key);
+    citiesList.push(city);
+    const uniqueCities = [...new Set(citiesList)];
+
+    LocalStorageService.setItem(key, uniqueCities);
+
+    return uniqueCities;
+}
+
 export const addToFavoriteCitiesList = (city) => dispatch => {
+    // const favoriteCitiesList = LocalStorageService.getItem('favoriteCitiesList');
+    // favoriteCitiesList.push(city);
+    // const uniqueCities = [...new Set(favoriteCitiesList)];
+
+    // LocalStorageService.setItem('favoriteCitiesList', uniqueCities);
+
+    const favoriteCities = addCityToLocalStorage(city, 'favoriteCitiesList')
+
     dispatch({
         type: ADD_TO_FAVORITE_CITIES_LIST,
         payload: {
-            city
+            favoriteCities
         }
     });
 };
 
+export const removeFromFavoriteCitiesList = (cityToRemove) => dispatch => {
+ lm 
+
+    dispatch({
+        type: REMOVE_FROM_FAVORITE_CITIES_LIST,
+        payload: {
+            filteredCities
+        }
+    });
+};
+
+
+
+// export const addToLastViewed = (city) => dispatch => {
+//     // const favoriteCitiesList = LocalStorageService.getItem('favoriteCitiesList');
+//     // favoriteCitiesList.push(city);
+//     // const uniqueCities = [...new Set(favoriteCitiesList)];
+
+//     // LocalStorageService.setItem('favoriteCitiesList', uniqueCities);
+//     addCityToLocalStorage(city, )
+
+//     dispatch({
+//         type: ADD_TO_LAST_VIEWED_CITIES,
+//         payload: {
+//             uniqueCities
+//         }
+//     });
+// };
+
+// export const removeFromLastViewed = (cityToRemove) => dispatch => {
+//     const favoriteCitiesList = LocalStorageService.getItem('favoriteCitiesList');
+//     const filteredCities = favoriteCitiesList.filter(city => city !==cityToRemove);
+
+//     LocalStorageService.setItem('favoriteCitiesList', filteredCities);
+
+//     dispatch({
+//         type: REMOVE_FROM_LAST_VIEWED_CITIES,
+//         payload: {
+//             filteredCities
+//         }
+//     });
+// };

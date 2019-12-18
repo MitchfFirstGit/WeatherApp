@@ -5,17 +5,28 @@ class StorageService {
     }
 
     // get item from storage
-    getItem(key, parse) {
-        const value = this.storage.getItem(key);
+    getItem(key) {
+        try {
+            const serializedState = localStorage.getItem(key);
 
-        if (parse) return JSON.parse(value);
+            if (serializedState === null) {
+                return [];
+            }
 
-        return value;
+            return JSON.parse(serializedState);
+        } catch (err) {
+            return [];
+        }
     }
 
     // set item from storage
-    setItem(key, value, stringify) {
-        stringify ? this.storage.setItem(key, JSON.stringify(value)) : this.storage.setItem(key, value);
+    setItem(key, value) {
+        try {
+            const serializedState = JSON.stringify(value);
+            this.storage.setItem(key, serializedState);
+        } catch {
+            // ignore for now
+        }
     }
 
     // remove item from storage

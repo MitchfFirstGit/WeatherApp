@@ -7,11 +7,15 @@ import AnimateHeight from 'react-animate-height';
 import { connect } from 'react-redux';
 // services
 import { LocalStorageService } from '../../services/storage';
+// Redux
+import { removeFromFavoriteCitiesList } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
 const Menu = ({
-    menuVisibility
+    menuVisibility,
+    favoriteCitiesList,
+    removeFromFavoriteCitiesList
 }) => {
     const [showFavoriteCities, setShowFavoriteCities] = useState(0);
     const [showRecentlyViewedCities, setRecentlyViewedCities] = useState(0);
@@ -26,6 +30,7 @@ const Menu = ({
     }
 
     const handleRemoveFavoriteCity = ({ currentTarget }) => {
+        removeFromFavoriteCitiesList(currentTarget.id);
         // const favoriteCitiesList = LocalStorageService.getItem('favoriteCities', true);
 
         // const filteredCitiesList = favoriteCitiesList.filter(city => city !== currentTarget.id);
@@ -35,10 +40,10 @@ const Menu = ({
     }
 
     const renderFavoriteCities = () => {
-        // if (favoriteCitiesList) return favoriteCitiesList.map(city => <div className={styles.city} key={city}>
-        //     {city}
-        //     <Icon path={mdiDelete} onClick={handleRemoveFavoriteCity} id={city} />
-        // </div>)
+        if (favoriteCitiesList.length) return favoriteCitiesList.map(city => <div className={styles.city} key={city}>
+            {city}
+            <Icon path={mdiDelete} onClick={handleRemoveFavoriteCity} id={city} />
+        </div>)
 
         return <div className={styles.noCities}>
             You don't have any favorite cities, click heart button to add one
@@ -107,10 +112,16 @@ const Menu = ({
     );
 }
 
-const mapStateToProps = state => ({
-    menuVisibility: state.menuVisibility,
+const mapStateToProps = ({ menuVisibility, favoriteCitiesList}) => ({
+    menuVisibility,
+    favoriteCitiesList
 });
 
+const mapDispatchToProps = {
+    removeFromFavoriteCitiesList,
+};
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Menu);
