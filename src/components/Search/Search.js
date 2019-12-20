@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import cx from 'classnames';
 // components
 import AutocompleteInput from '../AutocompleteInput';
-// services
-import { LocalStorageService } from '../../services/storage';
 // Redux
 import { getWeatherForecast, setMenuVisibility, addToFavoriteCitiesList } from '../../actions/actions';
 // styles
@@ -18,7 +16,8 @@ const Search = ({
     setMenuVisibility,
     menuVisibility,
     currentCity,
-    addToFavoriteCitiesList
+    addToFavoriteCitiesList,
+    favoriteCitiesList
 }) => {
     const [inputValue, setInputValue] = useState('');
 
@@ -40,24 +39,6 @@ const Search = ({
     }
 
     const handleFavoriteIconClick = () => {
-        const favoriteCitiesKey = 'favoriteCities';
-        // let favoriteCitiesList = LocalStorageService.getItem(favoriteCitiesKey, true);
-
-        // if (favoriteCitiesList) {
-        //     if (favoriteCitiesList.length < 5) {
-        //         favoriteCitiesList.push(currentCity);
-        //         LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
-        //     } else {
-        //         favoriteCitiesList.shift();
-        //         favoriteCitiesList.push(currentCity);
-        //         LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
-        //     }
-        // } else {
-        //     // favoriteCitiesList doesn't exist
-        //     favoriteCitiesList = [];
-        //     favoriteCitiesList.push(currentCity);
-        //     LocalStorageService.setItem(favoriteCitiesKey, favoriteCitiesList, true);
-        // }
         addToFavoriteCitiesList(currentCity);
     }
 

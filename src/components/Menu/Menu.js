@@ -5,8 +5,6 @@ import { mdiDelete } from '@mdi/js';
 import Icon from '@mdi/react';
 import AnimateHeight from 'react-animate-height';
 import { connect } from 'react-redux';
-// services
-import { LocalStorageService } from '../../services/storage';
 // Redux
 import { removeFromFavoriteCitiesList } from '../../actions/actions';
 // styles
@@ -19,7 +17,6 @@ const Menu = ({
 }) => {
     const [showFavoriteCities, setShowFavoriteCities] = useState(0);
     const [showRecentlyViewedCities, setRecentlyViewedCities] = useState(0);
-    // const [favoriteCitiesList, setFavoriteCitiesList] = useState(LocalStorageService.getItem('favoriteCities', true) || null);
 
     const handleFavoriteCitiesClick = () => {
         setShowFavoriteCities(showFavoriteCities === 0 ? 'auto' : 0);
@@ -31,12 +28,6 @@ const Menu = ({
 
     const handleRemoveFavoriteCity = ({ currentTarget }) => {
         removeFromFavoriteCitiesList(currentTarget.id);
-        // const favoriteCitiesList = LocalStorageService.getItem('favoriteCities', true);
-
-        // const filteredCitiesList = favoriteCitiesList.filter(city => city !== currentTarget.id);
-
-        // LocalStorageService.setItem('favoriteCities', filteredCitiesList, true);
-        // setFavoriteCitiesList(filteredCitiesList);
     }
 
     const renderFavoriteCities = () => {
@@ -112,7 +103,7 @@ const Menu = ({
     );
 }
 
-const mapStateToProps = ({ menuVisibility, favoriteCitiesList}) => ({
+const mapStateToProps = ({ menuVisibility, favoriteCitiesList }) => ({
     menuVisibility,
     favoriteCitiesList
 });

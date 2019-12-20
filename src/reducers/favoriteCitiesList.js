@@ -11,10 +11,10 @@ export default (state = localStorageFavoriteCities, action) => {
 
     switch (type) {
         case ADD_TO_FAVORITE_CITIES_LIST:
-            return payload.favoriteCities
+            return payload.citiesList
             
         case REMOVE_FROM_FAVORITE_CITIES_LIST:
-            return payload.filteredCities;
+            return payload.citiesList;
 
         default:
             return state

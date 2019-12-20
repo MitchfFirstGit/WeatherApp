@@ -83,45 +83,47 @@ const addCityToLocalStorage = (city, key) => {
     citiesList.push(city);
     const uniqueCities = [...new Set(citiesList)];
 
+    if (uniqueCities.length <= 5) {
+        LocalStorageService.setItem(key, uniqueCities);
+    } else {
+        uniqueCities.shift();
+        LocalStorageService.setItem(key, uniqueCities);
+    }
+
     LocalStorageService.setItem(key, uniqueCities);
 
     return uniqueCities;
 }
 
-const removeCityFromLocalStorage = (city, key) => {
+const removeCityFromLocalStorage = (cityToRemove, key) => {
     const citiesList = LocalStorageService.getItem(key);
-    citiesList.push(city);
-    const uniqueCities = [...new Set(citiesList)];
+    const filteredCitiesList = citiesList.filter(city => city !== cityToRemove);
 
-    LocalStorageService.setItem(key, uniqueCities);
+    LocalStorageService.setItem(key, filteredCitiesList);
 
-    return uniqueCities;
+    return filteredCitiesList;
 }
 
 export const addToFavoriteCitiesList = (city) => dispatch => {
-    // const favoriteCitiesList = LocalStorageService.getItem('favoriteCitiesList');
-    // favoriteCitiesList.push(city);
-    // const uniqueCities = [...new Set(favoriteCitiesList)];
+    const citiesList = addCityToLocalStorage(city, 'favoriteCitiesList')
 
-    // LocalStorageService.setItem('favoriteCitiesList', uniqueCities);
 
-    const favoriteCities = addCityToLocalStorage(city, 'favoriteCitiesList')
 
     dispatch({
         type: ADD_TO_FAVORITE_CITIES_LIST,
         payload: {
-            favoriteCities
+            citiesList
         }
     });
 };
 
 export const removeFromFavoriteCitiesList = (cityToRemove) => dispatch => {
- lm 
+    const citiesList = removeCityFromLocalStorage(cityToRemove, 'favoriteCitiesList');
 
     dispatch({
         type: REMOVE_FROM_FAVORITE_CITIES_LIST,
         payload: {
-            filteredCities
+            citiesList
         }
     });
 };
