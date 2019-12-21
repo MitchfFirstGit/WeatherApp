@@ -12,10 +12,10 @@ export default (state = localStorageLastViewedCities, action) => {
 
     switch (type) {
         case ADD_TO_LAST_VIEWED_CITIES:
-            return payload.uniqueCities
-            
+            return payload.lastViewedCities
+
         case REMOVE_FROM_LAST_VIEWED_CITIES:
-            return payload.filteredCities;
+            return payload.lastViewedCities;
 
         default:
             return state

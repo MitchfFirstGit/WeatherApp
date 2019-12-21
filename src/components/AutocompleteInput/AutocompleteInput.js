@@ -16,10 +16,10 @@ const AutocompleteInput = ({
     const [filteredCities, setFilteredCities] = useState([]);
 
     const ref = useRef();
-    
+
     useOutsideClick(ref, () => {
         setShowSuggestions(false);
-      });
+    });
 
     const handleChange = ({ target }) => {
         const userInput = target.value;
@@ -43,7 +43,7 @@ const AutocompleteInput = ({
         if (showSuggestions && inputValue) {
             if (filteredCities.length) {
                 return (
-                    <ul class={styles.suggestions} ref={ref}>
+                    <ul className={styles.suggestions} ref={ref}>
                         {filteredCities.slice(0, 5).map((city, index) => {
                             return (
                                 <li key={`${city.name}${city.country}`} onClick={handleClick}>

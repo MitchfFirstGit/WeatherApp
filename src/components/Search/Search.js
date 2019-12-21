@@ -7,7 +7,7 @@ import cx from 'classnames';
 // components
 import AutocompleteInput from '../AutocompleteInput';
 // Redux
-import { getWeatherForecast, setMenuVisibility, addToFavoriteCitiesList } from '../../actions/actions';
+import { getWeatherForecast, setMenuVisibility, addToFavoriteCitiesList, addToLastViewedCities } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
@@ -17,7 +17,7 @@ const Search = ({
     menuVisibility,
     currentCity,
     addToFavoriteCitiesList,
-    favoriteCitiesList
+    addToLastViewedCities
 }) => {
     const [inputValue, setInputValue] = useState('');
 
@@ -25,7 +25,10 @@ const Search = ({
         e.preventDefault();
 
         if (inputValue || value) {
-            getWeatherForecast(value ? value : inputValue)
+            const city = value ? value : inputValue;
+
+            getWeatherForecast(city);
+            addToLastViewedCities(city);
             setInputValue('');
         };
     }
@@ -64,16 +67,16 @@ const Search = ({
     );
 }
 
-const mapStateToProps = ({ weatherForecast, menuVisibility, favoriteCitiesList }) => ({
+const mapStateToProps = ({ weatherForecast, menuVisibility }) => ({
     currentCity: weatherForecast.mainInfo.city && `${weatherForecast.mainInfo.city.name}, ${weatherForecast.mainInfo.city.country}`,
     menuVisibility,
-    favoriteCitiesList,
 });
 
 const mapDispatchToProps = {
     getWeatherForecast,
     setMenuVisibility,
-    addToFavoriteCitiesList
+    addToFavoriteCitiesList,
+    addToLastViewedCities
 };
 
 export default connect(

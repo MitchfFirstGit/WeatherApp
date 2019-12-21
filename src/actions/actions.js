@@ -104,10 +104,8 @@ const removeCityFromLocalStorage = (cityToRemove, key) => {
     return filteredCitiesList;
 }
 
-export const addToFavoriteCitiesList = (city) => dispatch => {
-    const citiesList = addCityToLocalStorage(city, 'favoriteCitiesList')
-
-
+export const addToFavoriteCitiesList = city => dispatch => {
+    const citiesList = addCityToLocalStorage(city, 'favoriteCitiesList');
 
     dispatch({
         type: ADD_TO_FAVORITE_CITIES_LIST,
@@ -117,7 +115,7 @@ export const addToFavoriteCitiesList = (city) => dispatch => {
     });
 };
 
-export const removeFromFavoriteCitiesList = (cityToRemove) => dispatch => {
+export const removeFromFavoriteCitiesList = cityToRemove => dispatch => {
     const citiesList = removeCityFromLocalStorage(cityToRemove, 'favoriteCitiesList');
 
     dispatch({
@@ -130,32 +128,24 @@ export const removeFromFavoriteCitiesList = (cityToRemove) => dispatch => {
 
 
 
-// export const addToLastViewed = (city) => dispatch => {
-//     // const favoriteCitiesList = LocalStorageService.getItem('favoriteCitiesList');
-//     // favoriteCitiesList.push(city);
-//     // const uniqueCities = [...new Set(favoriteCitiesList)];
+export const addToLastViewedCities = city => dispatch => {
+    const lastViewedCities = addCityToLocalStorage(city, 'lastViewedCities')
 
-//     // LocalStorageService.setItem('favoriteCitiesList', uniqueCities);
-//     addCityToLocalStorage(city, )
+    dispatch({
+        type: ADD_TO_LAST_VIEWED_CITIES,
+        payload: {
+            lastViewedCities
+        }
+    });
+};
 
-//     dispatch({
-//         type: ADD_TO_LAST_VIEWED_CITIES,
-//         payload: {
-//             uniqueCities
-//         }
-//     });
-// };
+export const removeFromLastViewedCities = cityToRemove => dispatch => {
+    const lastViewedCities = removeCityFromLocalStorage(cityToRemove, 'lastViewedCities');
 
-// export const removeFromLastViewed = (cityToRemove) => dispatch => {
-//     const favoriteCitiesList = LocalStorageService.getItem('favoriteCitiesList');
-//     const filteredCities = favoriteCitiesList.filter(city => city !==cityToRemove);
-
-//     LocalStorageService.setItem('favoriteCitiesList', filteredCities);
-
-//     dispatch({
-//         type: REMOVE_FROM_LAST_VIEWED_CITIES,
-//         payload: {
-//             filteredCities
-//         }
-//     });
-// };
+    dispatch({
+        type: REMOVE_FROM_LAST_VIEWED_CITIES,
+        payload: {
+            lastViewedCities
+        }
+    });
+};
