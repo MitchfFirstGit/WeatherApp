@@ -15,7 +15,7 @@ const Menu = ({
     favoriteCitiesList,
     removeFromFavoriteCitiesList,
     lastViewedCities,
-    removeFromLastViewedCities
+    removeFromLastViewedCities,
 }) => {
     const [showFavoriteCities, setShowFavoriteCities] = useState(0);
     const [showRecentlyViewedCities, setRecentlyViewedCities] = useState(0);
@@ -112,7 +112,7 @@ const mapStateToProps = ({ menuVisibility, favoriteCitiesList, lastViewedCities 
 
 const mapDispatchToProps = {
     removeFromFavoriteCitiesList,
-    removeFromLastViewedCities
+    removeFromLastViewedCities,
 };
 
 export default connect(

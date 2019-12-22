@@ -17,39 +17,6 @@ import { LocalStorageService } from '../services/storage';
 
 const apiKey = 'de1e94c85ef8c5b5b4456417ebd24daf';
 
-export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
-    dispatch({ type: CLEAR_WEATHER_FORECAST });
-
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${apiKey}`
-
-    try {
-        const res = await fetch(url);
-
-        if (!res.ok) {
-            throw new Error('Invalid request');
-        }
-
-        const data = await res.json();
-
-        dispatch({
-            type: GET_WEATHER_FORECAST,
-            payload: {
-                weatherItems: data.list,
-                mainInfo: data,
-                selectedDay: moment(data.list[0].dt_txt).format('dddd'),
-                selectedHour: moment(data.list[0].dt_txt).format('h a')
-            }
-        });
-    } catch (err) {
-        dispatch({
-            type: ERROR_WEATHER_FORECAST,
-            payload: {
-                errorMessage: err.message,
-            }
-        });
-    }
-};
-
 export const setSelectedDay = (selectedDay, selectedHour) => dispatch => {
     dispatch({
         type: SET_SELECTED_DAY,
@@ -126,9 +93,7 @@ export const removeFromFavoriteCitiesList = cityToRemove => dispatch => {
     });
 };
 
-
-
-export const addToLastViewedCities = city => dispatch => {
+const addToLastViewedCities = (city, dispatch) => {
     const lastViewedCities = addCityToLocalStorage(city, 'lastViewedCities')
 
     dispatch({
@@ -148,4 +113,38 @@ export const removeFromLastViewedCities = cityToRemove => dispatch => {
             lastViewedCities
         }
     });
+};
+
+export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
+    dispatch({ type: CLEAR_WEATHER_FORECAST });
+
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${apiKey}`
+
+    try {
+        const res = await fetch(url);
+
+        if (!res.ok) {
+            throw new Error('Invalid request');
+        }
+
+        addToLastViewedCities(city, dispatch);
+
+        const data = await res.json();
+        dispatch({
+            type: GET_WEATHER_FORECAST,
+            payload: {
+                weatherItems: data.list,
+                mainInfo: data,
+                selectedDay: moment(data.list[0].dt_txt).format('dddd'),
+                selectedHour: moment(data.list[0].dt_txt).format('h a')
+            }
+        });
+    } catch (err) {
+        dispatch({
+            type: ERROR_WEATHER_FORECAST,
+            payload: {
+                errorMessage: `We don't have ${city} city, try to type another city`,
+            }
+        });
+    }
 };

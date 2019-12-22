@@ -1,5 +1,6 @@
 // modules
 import React, { useState, useRef } from 'react';
+import { connect } from 'react-redux';
 // hooks
 import useOutsideClick from '../../hooks/useOutsideClick';
 // styles
@@ -10,7 +11,8 @@ import { CITIES } from '../../data/cities';
 const AutocompleteInput = ({
     inputValue,
     onInputChange,
-    onCityClick
+    onCityClick,
+    errorMessage
 }) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [filteredCities, setFilteredCities] = useState([]);
@@ -53,12 +55,6 @@ const AutocompleteInput = ({
                         })}
                     </ul>
                 );
-            } else {
-                return (
-                    <div className={styles.noSuggestions} ref={ref}>
-                        Sorry, but we don't have such city
-                    </div>
-                );
             }
         }
     }
@@ -71,9 +67,18 @@ const AutocompleteInput = ({
                 value={inputValue}
                 onChange={handleChange}
             />
+
             {suggestionsListComponent()}
+
+            {errorMessage && inputValue.length === 0 && <div className={styles.errorMessage}> {errorMessage} </div>}
         </>
     );
 }
 
-export default AutocompleteInput;
+const mapStateToProps = ({ weatherForecast }) => ({
+    errorMessage: weatherForecast.error.message
+});
+
+export default connect(
+    mapStateToProps
+)(AutocompleteInput);

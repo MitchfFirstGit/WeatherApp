@@ -18,27 +18,30 @@ const Day = ({
     const handleClick = ({ currentTarget }) => {
         setSelectedHour(currentTarget.id)
     }
-    
+
     return (
-        <ul className={styles.hoursContainer}>
-            {weatherHoursItems && weatherHoursItems.map(item => (
-                <li className=
-                    {cx(styles.hourInfo, { [styles.activeHour]: selectedHour === moment(item.dt_txt).format('h a') })}
-                    id={moment(item.dt_txt).format('h a')}
-                    onClick={handleClick}
-                    key={moment(item.dt_txt).format('h a')}
-                >
-                    <div className={styles.hour}>
-                        {moment(item.dt_txt).format('HH:mm')}
-                    </div>
+        <>
+            {weatherHoursItems.length > 0 && <ul className={styles.hoursContainer}>
+                {weatherHoursItems.map(item => (
+                    <li className=
+                        {cx(styles.hourInfo, { [styles.activeHour]: selectedHour === moment(item.dt_txt).format('h a') })}
+                        id={moment(item.dt_txt).format('h a')}
+                        onClick={handleClick}
+                        key={moment(item.dt_txt).format('h a')}
+                    >
+                        <div className={styles.hour}>
+                            {moment(item.dt_txt).format('HH:mm')}
+                        </div>
 
-                    <Icon path={mdiWeatherPartlyCloudy} size={2.5} color="white" className={styles.weatherIcon} />
+                        <Icon path={mdiWeatherPartlyCloudy} size={2.5} color="white" className={styles.weatherIcon} />
 
-                    <div className={styles.temperature}>
-                        {item.main.temp.toFixed(1)}
-                    </div>
-                </li>))}
-        </ul>
+                        <div className={styles.temperature}>
+                            {item.main.temp.toFixed(1)}
+                        </div>
+                    </li>))}
+            </ul>
+            }
+        </>
     );
 }
 

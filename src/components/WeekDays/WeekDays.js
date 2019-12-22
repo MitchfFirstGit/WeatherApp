@@ -35,17 +35,21 @@ const WeekDays = ({
   };
 
   return (
-    <ul className={styles.daysContainer}>
-      {days &&
-        days.map(item => <li
-          className={cx(styles.day, { [styles.activeDay]: selectedDay === item })}
-          onClick={handleClick}
-          key={item}
-        >
-          {item}
-        </li>)
+    <>
+      {weatherItems.length > 0 && days && <ul className={styles.daysContainer}>
+        {days.map(item =>
+          <li
+            className={cx(styles.day, { [styles.activeDay]: selectedDay === item })}
+            onClick={handleClick}
+            key={item}
+          >
+            {item}
+          </li>)
+        }
+      </ul>
       }
-    </ul>
+    </>
+
   );
 }
 

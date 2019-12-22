@@ -32,8 +32,6 @@ export default (state = initialState, action) => {
         case CLEAR_WEATHER_FORECAST:
             return {
                 ...state,
-                mainInfo: {},
-                weatherItems: [],
                 loading: true,
                 error: {}
             }
@@ -42,7 +40,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 error: { message: payload.errorMessage },
-                loading: false
+                loading: false,
             };
 
         case SET_SELECTED_DAY:

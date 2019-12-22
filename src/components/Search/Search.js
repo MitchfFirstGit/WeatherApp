@@ -7,7 +7,7 @@ import cx from 'classnames';
 // components
 import AutocompleteInput from '../AutocompleteInput';
 // Redux
-import { getWeatherForecast, setMenuVisibility, addToFavoriteCitiesList, addToLastViewedCities } from '../../actions/actions';
+import { getWeatherForecast, setMenuVisibility, addToFavoriteCitiesList } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
@@ -16,10 +16,11 @@ const Search = ({
     setMenuVisibility,
     menuVisibility,
     currentCity,
-    addToFavoriteCitiesList,
-    addToLastViewedCities
+    addToFavoriteCitiesList
 }) => {
     const [inputValue, setInputValue] = useState('');
+
+
 
     const handleSubmit = (e, value) => {
         e.preventDefault();
@@ -28,7 +29,6 @@ const Search = ({
             const city = value ? value : inputValue;
 
             getWeatherForecast(city);
-            addToLastViewedCities(city);
             setInputValue('');
         };
     }
@@ -76,7 +76,6 @@ const mapDispatchToProps = {
     getWeatherForecast,
     setMenuVisibility,
     addToFavoriteCitiesList,
-    addToLastViewedCities
 };
 
 export default connect(
