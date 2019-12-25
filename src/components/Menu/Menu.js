@@ -6,7 +6,7 @@ import Icon from '@mdi/react';
 import AnimateHeight from 'react-animate-height';
 import { connect } from 'react-redux';
 // Redux
-import { removeFromFavoriteCitiesList, removeFromLastViewedCities } from '../../actions/actions';
+import { removeFromFavoriteCitiesList, removeFromLastViewedCities, getWeatherForecast } from '../../actions/actions';
 // styles
 import styles from './styles.module.scss';
 
@@ -16,6 +16,7 @@ const Menu = ({
     removeFromFavoriteCitiesList,
     lastViewedCities,
     removeFromLastViewedCities,
+    getWeatherForecast,
 }) => {
     const [showFavoriteCities, setShowFavoriteCities] = useState(0);
     const [showRecentlyViewedCities, setRecentlyViewedCities] = useState(0);
@@ -36,11 +37,22 @@ const Menu = ({
         removeFromLastViewedCities(currentTarget.id);
     }
 
+    const handleCityClick = ({ currentTarget, target }) => {
+        if (currentTarget === target) getWeatherForecast(currentTarget.id);
+    }
+
     const renderFavoriteCities = () => {
-        if (favoriteCitiesList.length) return favoriteCitiesList.map(city => <div className={styles.city} key={city}>
-            {city}
-            <Icon path={mdiDelete} onClick={handleRemoveFavoriteCity} id={city} />
-        </div>)
+        if (favoriteCitiesList.length) return favoriteCitiesList.map(city => (
+            <div
+                className={styles.city}
+                key={city}
+                id={city}
+                onClick={handleCityClick}
+            >
+                {city}
+                <Icon path={mdiDelete} onClick={handleRemoveFavoriteCity} id={city} />
+            </div>
+        ))
 
         return <div className={styles.noCities}>
             Oops, empty here, click heart button to add a city
@@ -48,10 +60,17 @@ const Menu = ({
     }
 
     const renderLastViewedCities = () => {
-        if (lastViewedCities.length) return lastViewedCities.map(city => <div className={styles.city} key={city}>
-            {city}
-            <Icon path={mdiDelete} onClick={handleRemoveLastViewedCity} id={city} />
-        </div>)
+        if (lastViewedCities.length) return lastViewedCities.map(city => (
+            <div
+                className={styles.city}
+                key={city}
+                id={city}
+                onClick={handleCityClick}
+            >
+                {city}
+                <Icon path={mdiDelete} onClick={handleRemoveLastViewedCity} id={city} />
+            </div>
+        ))
 
         return <div className={styles.noCities}>
             Oops, empty here, click search button to add a city
@@ -113,6 +132,7 @@ const mapStateToProps = ({ menuVisibility, favoriteCitiesList, lastViewedCities 
 const mapDispatchToProps = {
     removeFromFavoriteCitiesList,
     removeFromLastViewedCities,
+    getWeatherForecast
 };
 
 export default connect(

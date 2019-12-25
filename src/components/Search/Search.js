@@ -42,7 +42,7 @@ const Search = ({
     }
 
     const handleFavoriteIconClick = () => {
-        addToFavoriteCitiesList(currentCity);
+        if (currentCity) addToFavoriteCitiesList(currentCity);
     }
 
     return (

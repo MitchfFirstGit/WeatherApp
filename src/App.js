@@ -1,5 +1,5 @@
 // modules
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 // components
 import FirstInteraction from './components/FirstInteraction';
@@ -16,18 +16,13 @@ import styles from './styles.module.scss'
 const App = ({
   getWeatherForecast,
   lastViewedCities,
-  favoriteCitiesList
+  favoriteCitiesList,
+  weatherItems,
 }) => {
-  const [showMenu, setShowMenu] = useState(false);
-
-  const handleMenuVisibility = () => {
-    setShowMenu(!showMenu);
-  }
-
   useEffect(() => {
     if (lastViewedCities.length) {
       getWeatherForecast(lastViewedCities[lastViewedCities.length - 1]);
-    } else if (favoriteCitiesList) {
+    } else if (favoriteCitiesList.length) {
       getWeatherForecast(favoriteCitiesList[favoriteCitiesList.length - 1]);
     }
   }, []);
@@ -35,7 +30,7 @@ const App = ({
   return (
     <div className={styles.container}>
       <Search />
-      {lastViewedCities.length > 0 || favoriteCitiesList.length > 0
+      {lastViewedCities.length || favoriteCitiesList.length || weatherItems.length
         ? <>
           <MainInfo />
           <WeekDays />
@@ -43,15 +38,16 @@ const App = ({
         </>
         : <FirstInteraction />
       }
-      <Menu handleMenuClick={handleMenuVisibility} menuVisibility={showMenu} />
+      <Menu />
     </div>
   );
 }
 
 
-const mapStateToProps = ({ lastViewedCities, favoriteCitiesList }) => ({
+const mapStateToProps = ({ lastViewedCities, favoriteCitiesList, weatherForecast }) => ({
   lastViewedCities,
-  favoriteCitiesList
+  favoriteCitiesList,
+  weatherItems: weatherForecast.weatherItems
 });
 
 const mapDispatchToProps = {
