@@ -1,9 +1,8 @@
 // modules
 import React, { useState } from 'react';
 import Icon from '@mdi/react';
-import { mdiHeart, mdiMagnify } from '@mdi/js';
+import { mdiHeart, mdiMagnify, mdiMenu } from '@mdi/js';
 import { connect } from 'react-redux';
-import cx from 'classnames';
 // components
 import AutocompleteInput from '../AutocompleteInput';
 // Redux
@@ -19,8 +18,6 @@ const Search = ({
     addToFavoriteCitiesList
 }) => {
     const [inputValue, setInputValue] = useState('');
-
-
 
     const handleSubmit = (e, value) => {
         e.preventDefault();
@@ -60,8 +57,8 @@ const Search = ({
                 </button>
             </form >
 
-            <button className={cx(styles.menuButton, { [styles.closeButton]: menuVisibility })} onClick={handleMenuClick}>
-                <div className={styles.middleLine} />
+            <button className={styles.button} onClick={handleMenuClick}>
+                <Icon path={mdiMenu} size={1} color="white" />
             </button>
         </div>
     );

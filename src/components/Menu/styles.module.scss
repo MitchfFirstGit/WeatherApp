@@ -9,10 +9,8 @@
 
 .menuContainer {
   position: absolute;
-  background-color: red;
   top: 0;
   bottom: 0;
-  transition: width 0.3s ease-out;
   color: #2398ab;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 15px 15px 0 15px;
@@ -26,6 +24,26 @@
   transform: translateX(0%);
 }
 
+.button {
+  position: absolute;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  min-width: 40px;
+  min-height: 40px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
 .closeIcon {
   cursor: pointer;
   fill: #2398ab;
@@ -34,7 +52,7 @@
 .menuList {
   padding: 0;
   list-style: none;
-  margin: 35px 0 0 0;
+  margin: 50px 0 0 0;
 
   .item {
     padding: 12px 0 12px 10px;
