@@ -1,10 +1,10 @@
 .daysContainer {
-  color: white;
   list-style: none;
   display: flex;
   justify-content: space-between;
   padding: 0;
   overflow: auto;
+  overflow-y: hidden;
   padding-bottom: 25px;
   margin: 0.5rem 0;
 

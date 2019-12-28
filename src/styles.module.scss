@@ -4,9 +4,28 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    max-width: 640px;
+    max-width: 650px;
     margin: 0 auto;
     border: 1px solid red;
     padding: 10px 10px 0 10px;
     overflow-x: hidden;
+    color: white;
+}
+
+.containerDark {
+    color: #E6E7E8;
+}
+
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: linear-gradient(to top, #55c5e0, #79ddd5);
+}
+
+.overlayDark {
+    background: #000000;
 }

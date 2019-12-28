@@ -1,6 +1,7 @@
 // modules
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 // hooks
 import useOutsideClick from '../../hooks/useOutsideClick';
 // styles
@@ -12,7 +13,8 @@ const AutocompleteInput = ({
     inputValue,
     onInputChange,
     onCityClick,
-    errorMessage
+    errorMessage,
+    darkMode
 }) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [filteredCities, setFilteredCities] = useState([]);
@@ -45,15 +47,18 @@ const AutocompleteInput = ({
         if (showSuggestions && inputValue) {
             if (filteredCities.length) {
                 return (
-                    <ul className={styles.suggestions} ref={ref}>
-                        {filteredCities.slice(0, 5).map((city, index) => {
-                            return (
-                                <li key={`${city.name}${city.country}`} onClick={handleClick}>
-                                    {`${city.name}, ${city.country}`}
-                                </li>
-                            );
-                        })}
-                    </ul>
+                    <>
+                        <div className={darkMode ? styles.suggestionsOverlay : ""} />
+                        <ul className={cx(styles.suggestions, { [styles.suggestionsDark]: darkMode })} ref={ref}>
+                            {filteredCities.slice(0, 5).map(city => {
+                                return (
+                                    <li key={`${city.name}${city.country}`} onClick={handleClick}>
+                                        {`${city.name}, ${city.country}`}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </>
                 );
             }
         }
@@ -63,7 +68,7 @@ const AutocompleteInput = ({
         <>
             <input
                 placeholder="Type location..."
-                className={styles.input}
+                className={cx(styles.input, { [styles.darkInput]: darkMode && showSuggestions && inputValue })}
                 value={inputValue}
                 onChange={handleChange}
             />
@@ -75,8 +80,9 @@ const AutocompleteInput = ({
     );
 }
 
-const mapStateToProps = ({ weatherForecast }) => ({
-    errorMessage: weatherForecast.error.message
+const mapStateToProps = ({ weatherForecast, darkMode }) => ({
+    errorMessage: weatherForecast.error.message,
+    darkMode
 });
 
 export default connect(

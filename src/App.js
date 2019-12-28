@@ -1,6 +1,7 @@
 // modules
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 // components
 import FirstInteraction from './components/FirstInteraction';
 import Search from './components/Search';
@@ -18,6 +19,7 @@ const App = ({
   lastViewedCities,
   favoriteCitiesList,
   weatherItems,
+  darkMode
 }) => {
   useEffect(() => {
     if (lastViewedCities.length) {
@@ -28,26 +30,30 @@ const App = ({
   }, []);
 
   return (
-    <div className={styles.container}>
-      <Search />
-      {lastViewedCities.length || favoriteCitiesList.length || weatherItems.length
-        ? <>
-          <MainInfo />
-          <WeekDays />
-          <Day />
-        </>
-        : <FirstInteraction />
-      }
-      <Menu />
-    </div>
+    <>
+      <div className={cx(styles.overlay, { [styles.overlayDark]: darkMode })} />
+      <div className={cx(styles.container, { [styles.containerDark]: darkMode })}>
+        <Search />
+        {lastViewedCities.length || favoriteCitiesList.length || weatherItems.length
+          ? <>
+            <MainInfo />
+            <WeekDays />
+            <Day />
+          </>
+          : <FirstInteraction />
+        }
+        <Menu />
+      </div>
+    </>
   );
 }
 
 
-const mapStateToProps = ({ lastViewedCities, favoriteCitiesList, weatherForecast }) => ({
+const mapStateToProps = ({ lastViewedCities, favoriteCitiesList, weatherForecast, darkMode }) => ({
   lastViewedCities,
   favoriteCitiesList,
-  weatherItems: weatherForecast.weatherItems
+  weatherItems: weatherForecast.weatherItems,
+  darkMode
 });
 
 const mapDispatchToProps = {

@@ -11,6 +11,7 @@ import {
     REMOVE_FROM_FAVORITE_CITIES_LIST,
     ADD_TO_LAST_VIEWED_CITIES,
     REMOVE_FROM_LAST_VIEWED_CITIES,
+    SET_DARK_MODE
 } from './constants';
 
 import { LocalStorageService } from '../services/storage';
@@ -147,4 +148,13 @@ export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
             }
         });
     }
+};
+
+export const setDarkMode = mode => dispatch => {
+    dispatch({
+        type: SET_DARK_MODE,
+        payload: {
+            mode
+        }
+    });
 };

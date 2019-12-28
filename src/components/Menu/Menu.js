@@ -11,6 +11,7 @@ import {
     removeFromLastViewedCities,
     getWeatherForecast,
     setMenuVisibility,
+    setDarkMode
 } from '../../actions/actions';
 // hooks
 import useOutsideClick from '../../hooks/useOutsideClick';
@@ -25,6 +26,8 @@ const Menu = ({
     removeFromLastViewedCities,
     getWeatherForecast,
     setMenuVisibility,
+    setDarkMode,
+    darkMode
 }) => {
     const [showFavoriteCities, setShowFavoriteCities] = useState(0);
     const [showRecentlyViewedCities, setRecentlyViewedCities] = useState(0);
@@ -69,7 +72,7 @@ const Menu = ({
     const renderFavoriteCities = () => {
         if (favoriteCitiesList.length) return favoriteCitiesList.map(city => (
             <div
-                className={styles.city}
+                className={cx(styles.city, { [styles.darkCity]: darkMode })}
                 key={city}
                 id={city}
                 onClick={handleCityClick}
@@ -79,7 +82,7 @@ const Menu = ({
             </div>
         ))
 
-        return <div className={styles.noCities}>
+        return <div className={cx(styles.noCities, { [styles.noCitiesDark]: darkMode })}>
             Oops, empty here, click heart button to add a city
         </div>
     }
@@ -87,7 +90,7 @@ const Menu = ({
     const renderLastViewedCities = () => {
         if (lastViewedCities.length) return lastViewedCities.map(city => (
             <div
-                className={styles.city}
+                className={cx(styles.city, { [styles.darkCity]: darkMode })}
                 key={city}
                 id={city}
                 onClick={handleCityClick}
@@ -97,22 +100,35 @@ const Menu = ({
             </div>
         ))
 
-        return <div className={styles.noCities}>
+        return <div className={cx(styles.noCities, { [styles.noCitiesDark]: darkMode })}>
             Oops, empty here, click search button to add a city
         </div>
     }
 
+    const handleModeChange = () => {
+        setDarkMode(!darkMode)
+    }
+
     return (
         <>
-            <div className={menuVisibility ? styles.overlay : ""}> </div>
+            <div className={cx({ [styles.overlay]: menuVisibility, [styles.overlayDarkMode]: darkMode })} />
 
-            <div className={cx(styles.menuContainer, { [styles.menuContainerOpen]: menuVisibility })} ref={ref}>
+            <div
+                className={cx(
+                    styles.menuContainer,
+                    {
+                        [styles.menuContainerOpen]: menuVisibility,
+                        [styles.menuContainerOpenDarkMode]: darkMode
+                    }
+                )}
+                ref={ref}
+            >
                 <button className={styles.button} onClick={handleMenuClose}>
-                    <Icon path={mdiClose} size={1} className={styles.closeIcon} />
+                    <Icon path={mdiClose} size={1} className={cx(styles.closeIcon, { [styles.darkCloseIcon]: darkMode })} />
                 </button>
 
-                <ul className={styles.menuList}>
-                    <li className={styles.item} onClick={handleFavoriteCitiesClick}>
+                <ul className={cx(styles.menuList, { [styles.darkMenuList]: darkMode })}>
+                    <li onClick={handleFavoriteCitiesClick}>
                         Favorite cities list
                     </li>
 
@@ -126,7 +142,7 @@ const Menu = ({
                         </div>
                     </AnimateHeight>
 
-                    <li className={styles.item} onClick={handleRecentlyViewedCitiesClick}>
+                    <li onClick={handleRecentlyViewedCitiesClick}>
                         Recently viewed cities
                         </li>
 
@@ -139,11 +155,11 @@ const Menu = ({
                         </div>
                     </AnimateHeight>
 
-                    <li className={styles.item}>
-                        Enable dark mode
+                    <li onClick={handleModeChange}>
+                        {darkMode ? 'Disable dark mode' : 'Enable dark mode'}
                     </li>
 
-                    <li className={styles.item}>
+                    <li>
                         Install app
                     </li>
                 </ul>
@@ -152,10 +168,11 @@ const Menu = ({
     );
 }
 
-const mapStateToProps = ({ menuVisibility, favoriteCitiesList, lastViewedCities }) => ({
+const mapStateToProps = ({ menuVisibility, favoriteCitiesList, lastViewedCities, darkMode }) => ({
     menuVisibility,
     favoriteCitiesList,
-    lastViewedCities
+    lastViewedCities,
+    darkMode
 });
 
 const mapDispatchToProps = {
@@ -163,6 +180,7 @@ const mapDispatchToProps = {
     removeFromLastViewedCities,
     getWeatherForecast,
     setMenuVisibility,
+    setDarkMode
 };
 
 export default connect(

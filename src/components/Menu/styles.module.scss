@@ -7,6 +7,11 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+.overlayDarkMode {
+  background-color: #1A2026;
+  opacity: 0.7;
+}
+
 .menuContainer {
   position: absolute;
   top: 0;
@@ -22,6 +27,11 @@
 
 .menuContainerOpen {
   transform: translateX(0%);
+}
+
+.menuContainerOpenDarkMode {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
 }
 
 .button {
@@ -49,12 +59,16 @@
   fill: #2398ab;
 }
 
+.darkCloseIcon {
+  fill: white;
+}
+
 .menuList {
   padding: 0;
   list-style: none;
   margin: 50px 0 0 0;
 
-  .item {
+  li {
     padding: 12px 0 12px 10px;
     font-size: 1.2rem;
     border-radius: 10px;
@@ -62,6 +76,14 @@
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}
+
+.darkMenuList {
+  li {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
     }
   }
 }
@@ -78,7 +100,7 @@
     cursor: pointer;
     font-size: 1rem;
     text-transform: capitalize;
-    
+
     svg {
       width: 20px;
       height: 20px;
@@ -90,10 +112,24 @@
       background-color: rgba(255, 255, 255, 0.9);
     }
   }
+
+  .darkCity {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    svg {
+      fill: white;
+    }
+  }
 }
 
 .noCities {
   color: teal;
   font-weight: 600;
   line-height: 1.4;
+}
+
+.noCitiesDark {
+  color: #D1D3D4;
 }
