@@ -1,22 +1,44 @@
 // modules
 import React from 'react';
-import Icon from '@mdi/react';
-import { mdiWeatherPartlyCloudy } from '@mdi/js';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import cx from 'classnames';
 // Redux
 import { setSelectedHour } from '../../actions/actions';
+// utils
+import { getWeatherIcon } from '../../utils/getWeatherIcon';
 // styles
 import styles from './styles.module.scss';
 
 const Day = ({
     weatherHoursItems,
     setSelectedHour,
-    selectedHour
+    selectedHour,
+    city,
 }) => {
     const handleClick = ({ currentTarget }) => {
         setSelectedHour(currentTarget.id)
+    }
+
+    const renderWeatherIcon = code => {
+        const currentHour = new Date().getHours();
+        const currentMinutes = new Date().getMinutes();
+        const sunsetHour = new Date(city.sunset * 1000).getHours();
+        const sunsetMinutes = new Date(city.sunset * 1000).getMinutes();
+        const sunriseHour = new Date(city.sunrise * 1000).getHours();
+        const sunriseMinutes = new Date(city.sunrise * 1000).getMinutes();
+        let time = 'day';
+
+        if (
+            (currentHour > sunsetHour) ||
+            (currentHour === sunsetHour && currentMinutes > sunsetMinutes) ||
+            (currentHour < sunriseHour) ||
+            (currentHour === sunriseHour && currentMinutes < sunriseMinutes)
+        ) {
+            time = 'night'
+        }
+
+        return <i className={`wi ${getWeatherIcon(code, time)}`} />
     }
 
     return (
@@ -33,7 +55,9 @@ const Day = ({
                             {moment(item.dt_txt).format('HH:mm')}
                         </div>
 
-                        <Icon path={mdiWeatherPartlyCloudy} size={2.5} color="white" className={styles.weatherIcon} />
+                        <div className={styles.weatherIcon}>
+                            {renderWeatherIcon(item.weather[0].id)}
+                        </div>
 
                         <div className={styles.temperature}>
                             {item.main.temp.toFixed(1)}
@@ -46,9 +70,10 @@ const Day = ({
 }
 
 
-const mapStateToProps = ({ weatherForecast: { weatherItems, selectedDay, selectedHour } }) => ({
+const mapStateToProps = ({ weatherForecast: { weatherItems, selectedDay, selectedHour, mainInfo } }) => ({
     weatherHoursItems: weatherItems.filter(item => moment(item.dt_txt).format('dddd') === selectedDay),
-    selectedHour
+    selectedHour,
+    city: mainInfo.city,
 });
 
 const mapDispatchToProps = {

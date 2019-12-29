@@ -12,7 +12,8 @@ import Menu from './components/Menu';
 // Redux
 import { getWeatherForecast } from './actions/actions';
 // styles
-import styles from './styles.module.scss'
+import styles from './styles/styles.module.scss'
+import "./styles/weather-icons.css";
 
 const App = ({
   getWeatherForecast,
