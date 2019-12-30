@@ -1,7 +1,5 @@
 // modules
 import React from 'react';
-import Icon from '@mdi/react';
-import { mdiWeatherWindy, mdiWaterOutline, mdiWeatherSunsetUp, mdiWeatherSunsetDown } from '@mdi/js';
 import { connect } from 'react-redux';
 import moment from 'moment';
 // styles
@@ -28,22 +26,34 @@ const MainInfo = ({
 
                 <div className={styles.wrapper}>
                     <div className={styles.sunrise}>
-                        <Icon path={mdiWeatherSunsetUp} size={1.2} color="white" />
+                        <div className={styles.sunriseIcon}>
+                            <i className="wi wi-sunrise" />
+                        </div>
+
                         {`${moment(new Date(mainInfo.city.sunrise * 1000)).format('HH:mm')} h`}
                     </div>
 
                     <div className={styles.wind}>
-                        <Icon path={mdiWeatherWindy} size={1.2} color="white" />
+                        <div className={styles.sunriseIcon}>
+                            <i className="wi wi-strong-wind" />
+                        </div>
+
                         {selectedWeaterItem.wind.speed.toFixed(1)} m/s
                 </div>
 
                     <div className={styles.humidity}>
-                        <Icon path={mdiWaterOutline} size={1.2} color="white" />
+                        <div className={styles.sunriseIcon}>
+                            <i className="wi wi-humidity" />
+                        </div>
+
                         {selectedWeaterItem.main.humidity}%
                 </div>
 
-                <div className={styles.sunset}>
-                        <Icon path={mdiWeatherSunsetDown} size={1.2} color="white" />
+                    <div className={styles.sunset}>
+                        <div className={styles.sunriseIcon}>
+                            <i className="wi wi-sunset" />
+                        </div>
+
                         {`${moment(new Date(mainInfo.city.sunset * 1000)).format('HH:mm')} h`}
                     </div>
                 </div>

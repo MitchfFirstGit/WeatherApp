@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Icon from '@mdi/react';
 import { mdiHeart, mdiMagnify, mdiMenu } from '@mdi/js';
 import { connect } from 'react-redux';
+import cx from "classnames";
 // components
 import AutocompleteInput from '../AutocompleteInput';
 // Redux
@@ -15,10 +16,11 @@ const Search = ({
     setMenuVisibility,
     menuVisibility,
     currentCity,
-    addToFavoriteCitiesList
+    addToFavoriteCitiesList,
+    isLiked,
 }) => {
     const [inputValue, setInputValue] = useState('');
-
+console.log(isLiked)
     const handleSubmit = (e, value) => {
         e.preventDefault();
 
@@ -44,8 +46,8 @@ const Search = ({
 
     return (
         <div className={styles.searchContainer}>
-            <button className={styles.button} onClick={handleFavoriteIconClick}>
-                <Icon path={mdiHeart} size={1} color="white" />
+            <button className={cx(styles.button, { [styles.likedCity]: isLiked })} onClick={handleFavoriteIconClick}>
+                <Icon path={mdiHeart} size={1}  />
             </button>
 
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -53,20 +55,21 @@ const Search = ({
                 <AutocompleteInput inputValue={inputValue} onInputChange={handleChange} onCityClick={handleSubmit} />
 
                 <button className={styles.searchButton}>
-                    <Icon path={mdiMagnify} size={1} color="white" />
+                    <Icon path={mdiMagnify} size={1} />
                 </button>
             </form >
 
             <button className={styles.button} onClick={handleMenuClick}>
-                <Icon path={mdiMenu} size={1} color="white" />
+                <Icon path={mdiMenu} size={1} />
             </button>
         </div>
     );
 }
 
-const mapStateToProps = ({ weatherForecast, menuVisibility }) => ({
+const mapStateToProps = ({ weatherForecast, menuVisibility, favoriteCitiesList }) => ({
     currentCity: weatherForecast.mainInfo.city && `${weatherForecast.mainInfo.city.name}, ${weatherForecast.mainInfo.city.country}`,
     menuVisibility,
+    isLiked: weatherForecast.mainInfo.city && favoriteCitiesList.includes(`${weatherForecast.mainInfo.city.name}, ${weatherForecast.mainInfo.city.country}`)
 });
 
 const mapDispatchToProps = {
