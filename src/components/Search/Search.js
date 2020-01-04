@@ -7,7 +7,14 @@ import cx from "classnames";
 // components
 import AutocompleteInput from '../AutocompleteInput';
 // Redux
-import { getWeatherForecast, setMenuVisibility, addToFavoriteCitiesList } from '../../actions/actions';
+import {
+    getWeatherForecast,
+    setMenuVisibility,
+    addToFavoriteCitiesList,
+    removeFromFavoriteCitiesList
+} from '../../actions/actions';
+// storage
+import { LocalStorageService } from '../../services/storage';
 // styles
 import styles from './styles.module.scss';
 
@@ -18,9 +25,10 @@ const Search = ({
     currentCity,
     addToFavoriteCitiesList,
     isLiked,
+    removeFromFavoriteCitiesList,
 }) => {
     const [inputValue, setInputValue] = useState('');
-console.log(isLiked)
+
     const handleSubmit = (e, value) => {
         e.preventDefault();
 
@@ -41,13 +49,22 @@ console.log(isLiked)
     }
 
     const handleFavoriteIconClick = () => {
-        if (currentCity) addToFavoriteCitiesList(currentCity);
+        if (currentCity) {
+            const favoriteCitiesLS = LocalStorageService.getItem('favoriteCitiesList');
+            const cityInLocalStorage = favoriteCitiesLS.includes(currentCity);
+
+            if (cityInLocalStorage) {
+                removeFromFavoriteCitiesList(currentCity);
+            } else {
+                addToFavoriteCitiesList(currentCity);
+            }
+        }
     }
 
     return (
         <div className={styles.searchContainer}>
             <button className={cx(styles.button, { [styles.likedCity]: isLiked })} onClick={handleFavoriteIconClick}>
-                <Icon path={mdiHeart} size={1}  />
+                <Icon path={mdiHeart} size={1} />
             </button>
 
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -76,6 +93,7 @@ const mapDispatchToProps = {
     getWeatherForecast,
     setMenuVisibility,
     addToFavoriteCitiesList,
+    removeFromFavoriteCitiesList,
 };
 
 export default connect(
