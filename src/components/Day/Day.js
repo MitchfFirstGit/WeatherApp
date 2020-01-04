@@ -5,6 +5,8 @@ import moment from 'moment';
 import cx from 'classnames';
 // Redux
 import { setSelectedHour } from '../../actions/actions';
+// reselect
+import { weatherHoursSelector } from '../../reselect';
 // utils
 import { getWeatherIcon } from '../../utils/getWeatherIcon';
 // styles
@@ -40,7 +42,7 @@ const Day = ({
 
         return <i className={`wi ${getWeatherIcon(code, time)}`} />
     }
-
+    console.log('hello');
     return (
         <>
             {weatherHoursItems && weatherHoursItems.length > 0 && <ul className={styles.hoursContainer}>
@@ -69,11 +71,10 @@ const Day = ({
     );
 }
 
-
-const mapStateToProps = ({ weatherForecast: { selectedDay, selectedHour, mainInfo } }) => ({
-    weatherHoursItems: mainInfo.list && mainInfo.list.filter(item => moment(item.dt_txt).format('dddd') === selectedDay),
-    selectedHour,
-    city: mainInfo.city,
+const mapStateToProps = ({ weatherForecast }) => ({
+    weatherHoursItems: weatherHoursSelector(weatherForecast),
+    selectedHour: weatherForecast.selectedHour,
+    city: weatherForecast.mainInfo.city,
 });
 
 const mapDispatchToProps = {
