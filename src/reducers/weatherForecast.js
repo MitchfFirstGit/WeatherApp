@@ -8,7 +8,6 @@ import {
 
 export const initialState = {
     mainInfo: {},
-    weatherItems: [],
     loading: false,
     error: {},
     selectedDay: '',
@@ -23,7 +22,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 mainInfo: payload.mainInfo,
-                weatherItems: payload.weatherItems,
                 selectedDay: payload.selectedDay,
                 selectedHour: payload.selectedHour,
                 loading: false,

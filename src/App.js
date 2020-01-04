@@ -33,9 +33,11 @@ const App = ({
   return (
     <>
       <div className={cx(styles.overlay, { [styles.overlayDark]: darkMode })} />
+
       <div className={cx(styles.container, { [styles.containerDark]: darkMode })}>
         <Search />
-        {lastViewedCities.length || favoriteCitiesList.length || weatherItems.length
+
+        {lastViewedCities.length || favoriteCitiesList.length || weatherItems
           ? <>
             <MainInfo />
             <WeekDays />
@@ -43,6 +45,7 @@ const App = ({
           </>
           : <FirstInteraction />
         }
+
         <Menu />
       </div>
     </>
@@ -53,7 +56,7 @@ const App = ({
 const mapStateToProps = ({ lastViewedCities, favoriteCitiesList, weatherForecast, darkMode }) => ({
   lastViewedCities,
   favoriteCitiesList,
-  weatherItems: weatherForecast.weatherItems,
+  weatherItems: weatherForecast.mainInfo.list,
   darkMode
 });
 

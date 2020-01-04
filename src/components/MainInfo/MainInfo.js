@@ -62,8 +62,8 @@ const MainInfo = ({
     );
 }
 
-const mapStateToProps = ({ weatherForecast: { weatherItems, selectedDay, selectedHour, mainInfo } }) => ({
-    selectedWeaterItem: weatherItems.find(item => moment(item.dt_txt).format('dddd') === selectedDay && moment(item.dt_txt).format('h a') === selectedHour),
+const mapStateToProps = ({ weatherForecast: { selectedDay, selectedHour, mainInfo } }) => ({
+    selectedWeaterItem: mainInfo.list && mainInfo.list.find(item => moment(item.dt_txt).format('dddd') === selectedDay && moment(item.dt_txt).format('h a') === selectedHour),
     mainInfo
 });
 

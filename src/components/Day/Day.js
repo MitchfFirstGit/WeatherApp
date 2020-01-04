@@ -43,7 +43,7 @@ const Day = ({
 
     return (
         <>
-            {weatherHoursItems.length > 0 && <ul className={styles.hoursContainer}>
+            {weatherHoursItems && weatherHoursItems.length > 0 && <ul className={styles.hoursContainer}>
                 {weatherHoursItems.map(item => (
                     <li className=
                         {cx(styles.hourInfo, { [styles.activeHour]: selectedHour === moment(item.dt_txt).format('h a') })}
@@ -70,8 +70,8 @@ const Day = ({
 }
 
 
-const mapStateToProps = ({ weatherForecast: { weatherItems, selectedDay, selectedHour, mainInfo } }) => ({
-    weatherHoursItems: weatherItems.filter(item => moment(item.dt_txt).format('dddd') === selectedDay),
+const mapStateToProps = ({ weatherForecast: { selectedDay, selectedHour, mainInfo } }) => ({
+    weatherHoursItems: mainInfo.list && mainInfo.list.filter(item => moment(item.dt_txt).format('dddd') === selectedDay),
     selectedHour,
     city: mainInfo.city,
 });

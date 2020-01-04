@@ -16,7 +16,7 @@ const WeekDays = ({
   const [days, setDays] = useState(null);
 
   useEffect(() => {
-    if (weatherItems.length > 0) {
+    if (weatherItems) {
       let uniqueDays = new Set();
 
       weatherItems.forEach(item => {
@@ -36,7 +36,7 @@ const WeekDays = ({
 
   return (
     <>
-      {weatherItems.length > 0 && days && <ul className={styles.daysContainer}>
+      {weatherItems && days && <ul className={styles.daysContainer}>
         {days.map(item =>
           <li
             className={cx(styles.day, { [styles.activeDay]: selectedDay === item })}
@@ -53,9 +53,9 @@ const WeekDays = ({
   );
 }
 
-const mapStateToProps = state => ({
-  weatherItems: state.weatherForecast.weatherItems,
-  selectedDay: state.weatherForecast.selectedDay
+const mapStateToProps = ({ weatherForecast: { mainInfo, selectedDay } }) => ({
+  weatherItems: mainInfo.list,
+  selectedDay: selectedDay
 });
 
 const mapDispatchToProps = {
