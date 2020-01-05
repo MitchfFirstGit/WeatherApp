@@ -42,16 +42,19 @@ const Day = ({
 
         return <i className={`wi ${getWeatherIcon(code, time)}`} />
     }
-    console.log('hello');
+
     return (
         <>
             {weatherHoursItems && weatherHoursItems.length > 0 && <ul className={styles.hoursContainer}>
                 {weatherHoursItems.map(item => (
-                    <li className=
-                        {cx(styles.hourInfo, { [styles.activeHour]: selectedHour === moment(item.dt_txt).format('h a') })}
-                        id={moment(item.dt_txt).format('h a')}
+                    <li className={cx(
+                        styles.hourInfo,
+                        {
+                            [styles.activeHour]: selectedHour === moment(item.dt_txt).format('HH:mm')
+                        })}
+                        id={moment(item.dt_txt).format('HH:mm')}
                         onClick={handleClick}
-                        key={moment(item.dt_txt).format('h a')}
+                        key={moment(item.dt_txt).format('HH:mm')}
                     >
                         <div className={styles.hour}>
                             {moment(item.dt_txt).format('HH:mm')}

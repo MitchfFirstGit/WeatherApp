@@ -1,43 +1,31 @@
 // modules
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import cx from 'classnames';
-import moment from 'moment';
 import { connect } from 'react-redux';
 // Redux 
 import { setSelectedDay } from '../../actions/actions';
+// selectors
+import { uniqueDaysSelector, formattedHoursSelector } from '../../reselect';
 // styles
 import styles from './styles.module.scss';
 
 const WeekDays = ({
-  weatherItems,
+  weekDays,
   setSelectedDay,
-  selectedDay
+  selectedDay,
+  formattedHours
 }) => {
-  const [days, setDays] = useState(null);
-
-  useEffect(() => {
-    if (weatherItems) {
-      let uniqueDays = new Set();
-
-      weatherItems.forEach(item => {
-        uniqueDays.add(moment(item.dt_txt).format('dddd'))
-      })
-
-      setDays([...uniqueDays]);
-    }
-  }, [weatherItems])
-
   const handleClick = ({ target }) => {
     const selectedDay = target.innerHTML;
-    const firstHourOfDay = weatherItems.find(item => moment(item.dt_txt).format('dddd') === target.innerHTML)
+    const firstHourOfDay = formattedHours.find(item => item.day === target.innerHTML)
 
-    setSelectedDay(selectedDay, moment(firstHourOfDay.dt_txt).format('h a'));
+    setSelectedDay(selectedDay, firstHourOfDay.hour);
   };
 
   return (
     <>
-      {weatherItems && days && <ul className={styles.daysContainer}>
-        {days.map(item =>
+      <ul className={styles.daysContainer}>
+        {weekDays.map(item =>
           <li
             className={cx(styles.day, { [styles.activeDay]: selectedDay === item })}
             onClick={handleClick}
@@ -47,15 +35,15 @@ const WeekDays = ({
           </li>)
         }
       </ul>
-      }
     </>
 
   );
 }
 
-const mapStateToProps = ({ weatherForecast: { mainInfo, selectedDay } }) => ({
-  weatherItems: mainInfo.list,
-  selectedDay: selectedDay
+const mapStateToProps = ({ weatherForecast }) => ({
+  weekDays: uniqueDaysSelector(weatherForecast),
+  selectedDay: weatherForecast.selectedDay,
+  formattedHours: formattedHoursSelector(weatherForecast)
 });
 
 const mapDispatchToProps = {
