@@ -1,5 +1,5 @@
 // modules
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Icon from '@mdi/react';
 import { mdiHeart, mdiMagnify, mdiMenu } from '@mdi/js';
 import { connect } from 'react-redux';
@@ -29,7 +29,7 @@ const Search = ({
 }) => {
     const [inputValue, setInputValue] = useState('');
 
-    const handleSubmit = (e, value) => {
+    const handleSubmit = useCallback((e, value) => {
         e.preventDefault();
 
         if (inputValue || value) {
@@ -38,11 +38,11 @@ const Search = ({
             getWeatherForecast(city);
             setInputValue('');
         };
-    }
+    }, []);
 
-    const handleChange = (value) => {
+    const handleChange = useCallback((value) => {
         setInputValue(value);
-    }
+    }, []);
 
     const handleMenuClick = () => {
         setMenuVisibility(!menuVisibility);
@@ -69,7 +69,11 @@ const Search = ({
 
             <form onSubmit={handleSubmit} className={styles.form}>
 
-                <AutocompleteInput inputValue={inputValue} onInputChange={handleChange} onCityClick={handleSubmit} />
+                <AutocompleteInput
+                    inputValue={inputValue}
+                    onInputChange={handleChange}
+                    onCityClick={handleSubmit}
+                />
 
                 <button className={styles.searchButton}>
                     <Icon path={mdiMagnify} size={1} />
