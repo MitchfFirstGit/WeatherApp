@@ -62,7 +62,7 @@ const Search = ({
             }
         }
     }
-    console.log('search')
+
     return (
         <div className={styles.searchContainer}>
             <button className={cx(styles.button, { [styles.likedCity]: isLiked })} onClick={handleFavoriteIconClick}>

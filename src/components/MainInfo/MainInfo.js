@@ -2,6 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+// selectors 
+import { selectedWeaterItemSelector } from '../../reselect';
 // styles
 import styles from './styles.module.scss';
 
@@ -62,12 +64,11 @@ const MainInfo = ({
     );
 }
 
-const mapStateToProps = ({ weatherForecast: { selectedDay, selectedHour, mainInfo } }) => ({
-    selectedWeaterItem: mainInfo.list && mainInfo.list.find(item => moment(item.dt_txt).format('dddd') === selectedDay && moment(item.dt_txt).format('HH:mm') === selectedHour),
-    mainInfo
+const mapStateToProps = ({ weatherForecast }) => ({
+    selectedWeaterItem: selectedWeaterItemSelector(weatherForecast),
+    mainInfo: weatherForecast.mainInfo
 });
 
 export default connect(
     mapStateToProps
 )(MainInfo);
-

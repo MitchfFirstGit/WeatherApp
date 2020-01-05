@@ -5,6 +5,7 @@ const weatherItems = state => state.mainInfo.list;
 const selectedDay = state => state.selectedDay;
 const currentCityInfo = state => state.weatherForecast.mainInfo.city;
 const favoriteCitiesList = state => state.favoriteCitiesList;
+const selectedHour = state => state.selectedHour;
 
 export const weatherHoursSelector = createSelector(
     weatherItems,
@@ -44,4 +45,14 @@ export const isLikedSelector = createSelector(
     currentCityInfo,
     favoriteCitiesList,
     (city, favorites) => city && favorites.includes(`${city.name}, ${city.country}`)
+);
+
+export const selectedWeaterItemSelector = createSelector(
+    weatherItems,
+    selectedDay,
+    selectedHour,
+    (items, day, hour) => items && items.find(item =>
+        moment(item.dt_txt).format('dddd') === day &&
+        moment(item.dt_txt).format('HH:mm') === hour
+    ),
 );
