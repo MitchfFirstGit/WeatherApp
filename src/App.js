@@ -34,7 +34,7 @@ const App = ({
     <>
       <div className={cx(styles.overlay, { [styles.overlayDark]: darkMode })} />
 
-      <div className={cx(styles.container, { [styles.containerDark]: darkMode })}>
+      <div className={styles.container}>
         <Search />
 
         {lastViewedCities.length || favoriteCitiesList.length || weatherItems
