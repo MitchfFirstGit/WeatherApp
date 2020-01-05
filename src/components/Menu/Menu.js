@@ -159,9 +159,9 @@ const Menu = ({
                         {darkMode ? 'Disable dark mode' : 'Enable dark mode'}
                     </li>
 
-                    <li>
+                    {/* <li>
                         Install app
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </>

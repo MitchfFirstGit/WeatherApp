@@ -4,6 +4,8 @@ import Icon from '@mdi/react';
 import { mdiHeart, mdiMagnify, mdiMenu } from '@mdi/js';
 import { connect } from 'react-redux';
 import cx from "classnames";
+// selectors
+import { cityFullNameSelector, isLikedSelector } from '../../reselect';
 // components
 import AutocompleteInput from '../AutocompleteInput';
 // Redux
@@ -60,7 +62,7 @@ const Search = ({
             }
         }
     }
-
+    console.log('search')
     return (
         <div className={styles.searchContainer}>
             <button className={cx(styles.button, { [styles.likedCity]: isLiked })} onClick={handleFavoriteIconClick}>
@@ -87,10 +89,10 @@ const Search = ({
     );
 }
 
-const mapStateToProps = ({ weatherForecast, menuVisibility, favoriteCitiesList }) => ({
-    currentCity: weatherForecast.mainInfo.city && `${weatherForecast.mainInfo.city.name}, ${weatherForecast.mainInfo.city.country}`,
-    menuVisibility,
-    isLiked: weatherForecast.mainInfo.city && favoriteCitiesList.includes(`${weatherForecast.mainInfo.city.name}, ${weatherForecast.mainInfo.city.country}`)
+const mapStateToProps = (state) => ({
+    currentCity: cityFullNameSelector(state),
+    menuVisibility: state.menuVisibility,
+    isLiked: isLikedSelector(state)
 });
 
 const mapDispatchToProps = {

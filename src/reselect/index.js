@@ -3,6 +3,8 @@ import moment from 'moment';
 
 const weatherItems = state => state.mainInfo.list;
 const selectedDay = state => state.selectedDay;
+const currentCityInfo = state => state.weatherForecast.mainInfo.city;
+const favoriteCitiesList = state => state.favoriteCitiesList;
 
 export const weatherHoursSelector = createSelector(
     weatherItems,
@@ -31,4 +33,15 @@ export const formattedHoursSelector = createSelector(
         day: moment(item.dt_txt).format('dddd'),
         hour: moment(item.dt_txt).format('HH:mm')
     }))
+);
+
+export const cityFullNameSelector = createSelector(
+    currentCityInfo,
+    (city) => city && `${city.name}, ${city.country}`
+);
+
+export const isLikedSelector = createSelector(
+    currentCityInfo,
+    favoriteCitiesList,
+    (city, favorites) => city && favorites.includes(`${city.name}, ${city.country}`)
 );
