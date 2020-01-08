@@ -8,7 +8,7 @@ Convert app to PWA application.
 ## Technologies
 * React Hooks
 * Redux
-* Reselect( add later )
+* Reselect
 * Typescript( add later )
 * PWA( Service Worker, Cache, manifest.json )
 * CSS modules
