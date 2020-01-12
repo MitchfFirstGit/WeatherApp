@@ -1,4 +1,4 @@
-# Welcome to PWA-Weather application 
+# Welcome to Weather application 
 For weather forecast I use [openweathermap](https://openweathermap.org/) api. 
 ### [Demo](https://mitchffirstgit.github.io/WeatherApp/) :zap:
 ## Current state
@@ -10,7 +10,7 @@ Convert app to PWA application.
 * Redux
 * Reselect
 * Typescript( add later )
-* PWA( Service Worker, Cache, manifest.json )
+* LocalStorage
 * CSS modules
 ###
 !!! Project still in progress !!!
