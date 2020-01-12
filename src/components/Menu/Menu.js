@@ -1,5 +1,5 @@
 // modules
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import cx from 'classnames';
 import AnimateHeight from 'react-animate-height';
 import { connect } from 'react-redux';
@@ -54,13 +54,13 @@ const Menu = ({
         setRecentlyViewedCities(showRecentlyViewedCities === 0 ? 'auto' : 0);
     }
 
-    const handleRemoveFavoriteCity = ({ currentTarget }) => {
+    const handleRemoveFavoriteCity = useCallback(({ currentTarget }) => {
         removeFromFavoriteCitiesList(currentTarget.id);
-    }
+    }, []);
 
-    const handleRemoveLastViewedCity = ({ currentTarget }) => {
+    const handleRemoveLastViewedCity = useCallback(({ currentTarget }) => {
         removeFromLastViewedCities(currentTarget.id);
-    }
+    }, []);
 
     const handleCityClick = ({ currentTarget, target }) => {
         if (currentTarget === target) {

@@ -1,5 +1,5 @@
 // modules
-import React from 'react';
+import React, { memo } from 'react';
 // components
 import MenuIcon from './components/MenuIcon';
 import LikeIcon from './components/LikeIcon';
@@ -7,7 +7,7 @@ import SearchIcon from './components/SearchIcon';
 import CloseIcon from './components/CloseIcon';
 import RemoveIcon from './components/RemoveIcon';
 
-const Icon = ({ iconName, className, onClick, id }) => {
+const Icon = memo(({ iconName, className, onClick, id }) => {
     const renderIcon = () => {
         switch (iconName) {
             case 'menu':
@@ -29,6 +29,6 @@ const Icon = ({ iconName, className, onClick, id }) => {
             {renderIcon()}
         </>
     );
-}
+})
 
 export default Icon;
