@@ -1,13 +1,12 @@
 // modules
 import React, { useState, useCallback } from 'react';
-import Icon from '@mdi/react';
-import { mdiHeart, mdiMagnify, mdiMenu } from '@mdi/js';
 import { connect } from 'react-redux';
 import cx from "classnames";
 // selectors
 import { cityFullNameSelector, isLikedSelector } from '../../reselect';
 // components
 import AutocompleteInput from '../AutocompleteInput';
+import Icon from '../Icon';
 // Redux
 import {
     getWeatherForecast,
@@ -40,7 +39,7 @@ const Search = ({
             getWeatherForecast(city);
             setInputValue('');
         };
-    }, []);
+    }, [inputValue]);
 
     const handleChange = useCallback((value) => {
         setInputValue(value);
@@ -66,7 +65,7 @@ const Search = ({
     return (
         <div className={styles.searchContainer}>
             <button className={cx(styles.button, { [styles.likedCity]: isLiked })} onClick={handleFavoriteIconClick}>
-                <Icon path={mdiHeart} size={1} />
+                <Icon iconName="like" className={styles.icon} />
             </button>
 
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -78,12 +77,12 @@ const Search = ({
                 />
 
                 <button className={styles.searchButton}>
-                    <Icon path={mdiMagnify} size={1} />
+                    <Icon iconName="search" className={styles.icon} />
                 </button>
             </form >
 
             <button className={styles.button} onClick={handleMenuClick}>
-                <Icon path={mdiMenu} size={1} />
+                <Icon iconName="menu" className={styles.icon} />
             </button>
         </div>
     );

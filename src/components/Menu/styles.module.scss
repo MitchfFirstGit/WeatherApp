@@ -54,12 +54,16 @@
   }
 }
 
-.closeIcon {
+.closeIcon,
+.removeIcon {
   cursor: pointer;
   fill: #2398ab;
+  width: 18px;
+  height: 18px;
 }
 
-.darkCloseIcon {
+.darkCloseIcon,
+.darkRemoveIcon {
   fill: white;
 }
 

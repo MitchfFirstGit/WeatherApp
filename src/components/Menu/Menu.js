@@ -1,10 +1,10 @@
 // modules
 import React, { useState, useRef } from 'react';
 import cx from 'classnames';
-import { mdiDelete, mdiClose } from '@mdi/js';
-import Icon from '@mdi/react';
 import AnimateHeight from 'react-animate-height';
 import { connect } from 'react-redux';
+// components
+import Icon from '../Icon';
 // Redux
 import {
     removeFromFavoriteCitiesList,
@@ -78,7 +78,13 @@ const Menu = ({
                 onClick={handleCityClick}
             >
                 {city}
-                <Icon path={mdiDelete} onClick={handleRemoveFavoriteCity} id={city} />
+
+                <Icon
+                    className={cx(styles.removeIcon, { [styles.darkRemoveIcon]: darkMode })}
+                    iconName="remove"
+                    onClick={handleRemoveFavoriteCity}
+                    id={city}
+                />
             </div>
         ))
 
@@ -96,7 +102,13 @@ const Menu = ({
                 onClick={handleCityClick}
             >
                 {city}
-                <Icon path={mdiDelete} onClick={handleRemoveLastViewedCity} id={city} />
+
+                <Icon
+                    className={cx(styles.removeIcon, { [styles.darkRemoveIcon]: darkMode })}
+                    iconName="remove"
+                    onClick={handleRemoveLastViewedCity}
+                    id={city}
+                />
             </div>
         ))
 
@@ -124,7 +136,7 @@ const Menu = ({
                 ref={ref}
             >
                 <button className={styles.button} onClick={handleMenuClose}>
-                    <Icon path={mdiClose} size={1} className={cx(styles.closeIcon, { [styles.darkCloseIcon]: darkMode })} />
+                    <Icon className={cx(styles.closeIcon, { [styles.darkCloseIcon]: darkMode })} iconName="close" />
                 </button>
 
                 <ul className={cx(styles.menuList, { [styles.darkMenuList]: darkMode })}>
