@@ -128,9 +128,10 @@ export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
             throw new Error('Invalid request');
         }
 
-        addToLastViewedCities(city, dispatch);
-
         const data = await res.json();
+        const { name, country } = data.city;
+
+        addToLastViewedCities(`${name}, ${country}`, dispatch);
 
         dispatch({
             type: GET_WEATHER_FORECAST,
